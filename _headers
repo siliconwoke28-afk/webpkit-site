@@ -1,0 +1,32 @@
+/*
+  Link: <https://webpkit.app/llms.txt>; rel="llms-txt", <https://webpkit.app/sitemap.xml>; rel="sitemap"
+  Vary: Accept
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/404.html
+  X-Robots-Tag: noindex
+
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+/about.md
+  Content-Type: text/markdown; charset=utf-8
+/contact.md
+  Content-Type: text/markdown; charset=utf-8
+/privacy.md
+  Content-Type: text/markdown; charset=utf-8
+/webp-to-png.md
+  Content-Type: text/markdown; charset=utf-8
+/webp-to-jpg.md
+  Content-Type: text/markdown; charset=utf-8
+/png-to-webp.md
+  Content-Type: text/markdown; charset=utf-8
+/jpg-to-webp.md
+  Content-Type: text/markdown; charset=utf-8
+/resize-webp.md
+  Content-Type: text/markdown; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8

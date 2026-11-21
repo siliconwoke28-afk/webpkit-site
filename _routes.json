@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/assets/*",
+    "/index.md",
+    "/about.md",
+    "/contact.md",
+    "/privacy.md",
+    "/webp-to-png.md",
+    "/webp-to-jpg.md",
+    "/png-to-webp.md",
+    "/jpg-to-webp.md",
+    "/resize-webp.md",
+    "/llms.txt",
+    "/llms-full.txt",
+    "/sitemap.xml",
+    "/robots.txt",
+    "/404.html"
+  ]
+}

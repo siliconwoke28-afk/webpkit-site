@@ -1,0 +1,740 @@
+# WebPKit
+
+> Browser-based WebP, PNG and JPG converter. Images are processed locally and never uploaded.
+
+---
+
+## About WebPKit - A Browser-Only Image Converter
+
+URL: https://webpkit.app/about
+
+WebPKit is a small static site that converts images between WebP, PNG and JPG, and resizes them, using nothing but the browser's own canvas API. There is no upload, no account, and no queue. The site exists because changing an image format should not require handing a private file to an unknown server.
+
+## What WebPKit is
+
+The site is a set of focused pages: a general WebP converter, dedicated pages for WebP to PNG, WebP to JPG, PNG to WebP, JPG to WebP, and a resizer for WebP images. Each page carries the same converter with a different default output and its own explanation of the trade-offs. Nothing is stored between visits: there are no accounts, no saved history, and no image library.
+
+The tool reads a file you choose, decodes it with the browser, draws it to a canvas, and encodes the result. That is the whole pipeline. The bytes never travel over the network, so the only copy of your image is the one on your disk and the temporary memory the browser uses while the tab is open.
+
+## The constraints we chose
+
+The site is deliberately plain. There is no JavaScript framework, no external font, no CDN, and no image asset in the interface. One stylesheet and one script ship with the pages. That keeps the first load small, makes the layout predictable on slow connections, and removes third-party requests that could see your IP address or set cookies.
+
+The visual language follows the same idea: a near-black workbench, square corners, a single fluorescent accent, and monospaced labels for anything that behaves like a measurement. It is meant to feel like a tool, not a landing page.
+
+## Limits we chose on purpose
+
+Some constraints are technical and some are editorial. Both are intentional:
+
+- **One image per run.** A single file keeps memory predictable and makes the before/after size comparison meaningful. Batch jobs belong in a command-line encoder.
+
+- **25 MB per file.** Decoding a very large image can exhaust memory on a phone. The limit is checked before decoding starts.
+
+- **No separate lossless switch.** The canvas API takes a quality value, not a mode flag. Chromium-based browsers use lossless WebP at 1.0, but other browsers may differ, so the site does not promise a lossless export. Use PNG when lossless output is required.
+
+- **No metadata preservation.** Canvas output contains pixels and alpha, not EXIF or color-profile tags. This is a privacy gain and an archival loss, depending on your use.
+
+- **No server-side history.** There is nothing to delete later because nothing was kept.
+
+## How to verify the privacy claim
+
+You do not have to take the sentence in the footer on faith. Open your browser's developer tools, switch to the network panel, and convert an image. No request carries the file. You can also load a page, disconnect from the network, and convert an image that is already on your device; the conversion still works because the encoder is local.
+
+The privacy policy describes what the site does not collect, what a hosting provider might log at the network edge, and how to ask a question about it. If you find a discrepancy between the policy and the behavior, please report it through the contact page.
+
+## Who the site is for
+
+It is for people who need one image converted now: a WebP that a client's CMS will not accept, a PNG that is too large to email, a screenshot that needs a smaller longest edge. It is not a photo editor, an asset manager, or a batch pipeline. It does not crop, rotate, retouch, or strip metadata selectively. Those are different tools, and pretending otherwise would make this one worse at the job it actually does.
+
+If a page claims something about format behavior, it is there because the behavior is observable in a browser, not because a marketing deck said so. Where results vary by image, the site reports the measured size and lets the preview speak.
+
+## Frequently asked questions
+
+###
+
+### Who runs WebPKit?
+
+WebPKit is an independent static site focused on browser-based image conversion; it has no accounts and no editorial team behind a content feed.
+
+###
+
+### Does WebPKit upload or store images?
+
+No. The converters read files locally with the File API and encode them in the browser; there is no upload endpoint and no server-side image storage.
+
+###
+
+### Why only one image at a time?
+
+Because the tool is built for careful single conversions: memory stays bounded, the size comparison stays meaningful, and each result can be checked before download.
+
+###
+
+### How is WebPKit funded?
+
+The site is currently free and has no ads or affiliate links; if that changes, the privacy page will describe any third-party scripts before they are added.
+
+## Related converters
+
+ConverterWebP to PNGConverterPNG to WebPConverterResize WebP
+
+## Bottom line
+
+WebPKit does one job locally: convert and resize images with the browser's canvas. It is small on purpose, honest about its limits, and easy to verify. If that matches what you need, the converter is one click away.
+
+---
+
+## Contact WebPKit - Bug Reports and Questions
+
+URL: https://webpkit.app/contact
+
+The fastest way to reach WebPKit is email: wk@webpkit.app. There is no contact form, because a form would require a server or a third-party service and neither is necessary for a static converter. Email is also better for bug reports, since you can paste error text and screenshots of the developer console.
+
+## Email is the only channel
+
+The site has no chat widget, no support portal, and no account system. A single mailbox keeps the operation small and avoids collecting data the site does not need. If you write, say what you were trying to do, what happened, and what you expected. Plain text is fine.
+
+Email is not instant. Messages are read in batches, and replies are best-effort rather than a contractual support service. If your question is about how a format behaves, the converter page and the dedicated format pages often answer it faster than a reply would arrive.
+
+## What to include in a bug report
+
+A useful report usually contains five things:
+
+- The browser name and version, and the operating system.
+
+- The source file's format and approximate dimensions and file size.
+
+- The output format, quality value, and longest-edge value you selected.
+
+- The exact message shown in the status line, copied rather than paraphrased.
+
+- Any error text from the browser console, if you are comfortable opening it.
+
+That is enough to reproduce most problems. A screenshot of the page is helpful when the issue is visual, such as a preview that does not match the downloaded file. Please do not attach the original image unless it is necessary and you are comfortable sharing it; a synthetic test image with the same characteristics is usually better.
+
+## What not to send
+
+Do not send passwords, API keys, private client files, or personal photographs. The site does not need them to diagnose a conversion problem, and email is not a secure channel for sensitive material. If a bug only appears with a specific private file, describe its properties: format, dimensions, transparency, and whether it came from a camera, a screenshot tool, or an editor.
+
+## Feature requests and scope
+
+WebPKit deliberately does one thing: single-file conversion and resizing in the browser. Batch processing, cloud storage, accounts, cropping, and metadata editing are outside the current scope. Requests for those features are still welcome as context, but they will not change the tool's core constraints. The about page lists the limits and the reasoning behind them. If a feature can be added without a server and without collecting data, it is more likely to be considered.
+
+Corrections to the written content are especially useful. If a page describes format behavior in a way that does not match what you observe, include the page URL and the sentence in question. The goal is for every claim on the site to be verifiable in a browser.
+
+## Privacy and security reports
+
+If you believe you have found a way for the site to transmit an image, load an unexpected third-party resource, or expose data it claims not to collect, report it by email with the steps to reproduce. Those reports are treated as priority. The privacy policy describes the intended boundary; a reproducible violation of it is a bug, not a policy debate.
+
+## Frequently asked questions
+
+###
+
+### How do I report a conversion bug?
+
+Email the address on this page with the browser name and version, the source format, the chosen output settings, and the exact message you saw; do not attach the file unless asked.
+
+###
+
+### Can WebPKit recover a deleted image or conversion?
+
+No. The site never stores images, so there is nothing to recover or delete on the server.
+
+###
+
+### Do you offer custom image work?
+
+No. WebPKit is a self-service converter only; custom editing, batch jobs, and format migrations are outside its scope.
+
+###
+
+### How fast is the reply?
+
+Replies are best-effort, usually within a few business days; there is no guaranteed support window.
+
+## Related converters
+
+ConverterWebP to PNGConverterWebP to JPGConverterResize WebP
+
+## Bottom line
+
+Email wk@webpkit.app with a clear description, the settings you used, and the exact error message. Keep private images out of the message. For format questions, check the relevant converter page first - the answer is probably already there.
+
+---
+
+## WebP Converter - WebP, PNG & JPG in Your Browser
+
+URL: https://webpkit.app/
+
+Drop an image and convert it between WebP, PNG and JPG without uploading anything. The file is decoded and re-encoded by your browser on a canvas, transparency is handled per format, and the size difference you see is measured from the actual output bytes. No account, no queue, no server.
+
+## What this WebP converter actually does
+
+Drop a WebP, PNG, or JPG into the panel above and choose an output: WebP, PNG, or JPG. Your browser decodes the file, draws it onto a canvas at the size you request, and re-encodes it with its own image encoder. There is no server in the loop. The source format, dimensions, and byte size are read from the file; the output size and the percentage change are measured from the resulting blob, not estimated.
+
+The tool handles one image at a time. That is deliberate: a single-file workflow keeps memory use predictable and makes the size comparison honest. If you need to process a folder, a desktop tool or a command-line encoder such as **cwebp** is a better fit. The 25 MB ceiling exists for the same reason - a very large image can exhaust memory on a phone while it is being decoded.
+
+## WebP, PNG or JPG: pick the output that fits the job
+
+These three formats solve different problems, and the right choice depends on what happens after the file leaves this page.
+
+### WebP: smaller files, lossy by default
+
+WebP is not a single codec setting. The format supports lossy compression, lossless compression, and an alpha channel, and encoders can combine those modes. This tool passes the quality value to the browser's encoder through **canvas.toBlob**. In Chromium-based browsers, values below 1.0 produce lossy WebP and 1.0 switches to lossless; other browsers may map the value differently. The measured output size makes that difference visible.
+
+Lossy WebP is usually the right choice for photographs and large illustrations on the web. It tends to beat JPEG at comparable visual quality and it keeps transparency when the source has it. If your source is a PNG and you want a smaller file, start with PNG to WebP conversion and check the preview for banding in flat areas.
+
+### PNG: lossless pixels and clean transparency
+
+PNG stores every pixel exactly and supports full alpha. That makes it the safe target for screenshots, UI assets, line art, logos, and images that will be edited again. The cost is size: a photographic PNG can be several times larger than the WebP it came from. When you need a lossless copy of what the browser decoded, convert WebP to PNG.
+
+PNG output here is produced by the browser's PNG encoder and is lossless relative to the decoded source. It cannot restore detail that a lossy WebP already discarded.
+
+### JPG: universal, photographic, no alpha
+
+JPEG is the format every photo pipeline accepts. It does not support transparency, so this tool composites transparent pixels onto white before encoding. Choose JPG when a destination rejects WebP and the image is a photograph. For screenshots and text, JPEG's block artifacts are visible; PNG is the better target. If your source is a WebP with alpha, read WebP to JPG before you convert, because the background change is permanent in the output.
+
+## How quality 0.8 behaves in practice
+
+The slider runs from 0.4 to 1.0 and applies only to WebP and JPG. 0.8 is a common default because it removes a large share of the bytes while leaving artifacts hard to see at normal viewing sizes. At 0.4 you will see ringing around edges and smearing in flat areas; that can be acceptable for thumbnails and unacceptable for product shots. In Chromium browsers, sliding WebP to 1.0 changes the encoder to lossless, so the file can jump in size at the top of the range.
+
+Quality is not a percentage of original quality, and the number is not comparable across formats. A WebP at 0.8 and a JPEG at 0.8 are different encoders doing different math. Judge by the preview and the measured size, not by the label. PNG ignores the slider; the control is disabled when PNG is selected so the interface does not imply a setting that has no effect.
+
+## What conversion drops
+
+Canvas conversion keeps pixels and alpha, but it does not carry container metadata. EXIF fields such as camera model, capture time, and GPS coordinates are not written to the output. Most browsers draw images into an sRGB canvas, so embedded color profiles are not preserved as tags; the pixels are converted to the canvas color space. For a screenshot or a web photo this rarely matters. For a print workflow or a photo that depends on a wide-gamut profile, convert in an application that manages color.
+
+There is also a generational cost. Every lossy encode discards information. Converting WebP to JPG and back to WebP does not return the original; it stacks two sets of artifacts. Convert once, from the best source you have, and keep the untouched original somewhere.
+
+## Why the file never leaves your device
+
+The page has no upload endpoint and the script makes no network requests. Images are read with the File API, decoded with **createImageBitmap** or an Image element, and encoded with **canvas.toBlob**. You can verify this yourself by opening the network panel in your browser's developer tools while converting: no request carries your image. Once the page is loaded, conversion works offline.
+
+That property is the main reason this tool exists. Uploading a client's screenshot to an unknown server just to change its format is a needless disclosure. Local processing removes the question entirely. The privacy policy describes the same boundary in more detail.
+
+## Frequently asked questions
+
+###
+
+### Does converting to WebP reduce quality?
+
+Below quality 1.0, yes: the WebP encoder is lossy. At 1.0 Chromium browsers switch to lossless WebP, which keeps pixels but can produce a much larger file, and other browsers may behave differently.
+
+###
+
+### Will transparency survive the conversion?
+
+PNG and WebP keep the alpha channel; JPG does not. JPG output is composited onto white, so soft shadows become white fringes.
+
+###
+
+### Can I convert several images at once?
+
+No. WebPKit converts one image per run by design, and the size comparison refers to that single file. Batch jobs need a different tool.
+
+###
+
+### Is there a file size limit?
+
+Yes, 25 MB per image. Larger files are rejected before decoding so the browser tab does not run out of memory.
+
+## Related converters
+
+ConverterWebP to PNGConverterPNG to WebPConverterResize WebP
+
+## Bottom line
+
+Use WebP for the web when you control the destination, PNG when you need lossless pixels or transparency, and JPG when compatibility matters more than bytes. Start around quality 0.8, check the preview, and trust the measured size. Everything happens in this tab; nothing is uploaded.
+
+---
+
+## JPG to WebP Converter - Re-encode Photos Locally
+
+URL: https://webpkit.app/jpg-to-webp
+
+This page re-encodes a JPEG photo as WebP in your browser. Done once at a sensible quality it usually produces a smaller file with comparable detail; done repeatedly it stacks compression artifacts. The JPEG you start with is already lossy, so there is no lossless path from it, only a careful single pass.
+
+## One decode, one encode
+
+The browser decodes the JPEG to raw pixels, draws them onto a canvas, and encodes that canvas as WebP. There is no server round trip and no intermediate file. Below quality 1.0, the one encode is the only new loss the tool adds; at 1.0 Chromium browsers switch the WebP encoder to lossless, though the JPEG source is already lossy.
+
+### Generation loss
+
+Every lossy encode removes information permanently. A JPEG that has already been saved a few times carries artifacts, and re-encoding it as WebP does not clean them up - it preserves them and adds its own. If you have the original raw or TIFF, encode WebP from that instead. If the JPEG is all you have, do one careful conversion and keep the JPEG as the archive copy.
+
+### Why repeated format swaps are a bad idea
+
+JPG to WebP to JPG to WebP is not a neutral round trip. Each step changes the image slightly, and the errors accumulate in flat areas and along edges. Pick a delivery format once, keep the best source, and regenerate from it when requirements change.
+
+## Quality for photographs
+
+Photos have smooth gradients, fine texture, and often skin tones. WebP handles these better than JPEG at the same nominal quality, but the slider is still a real trade. Start at 0.8, inspect the preview, and raise the value if you see smearing in sky gradients or on faces.
+
+### 0.80 versus 0.85
+
+The difference between 0.80 and 0.85 is often a modest size increase for a visible improvement on detailed images. Use 0.85 for portfolio work and images that will be displayed large; 0.80 is fine for blog images and thumbnails. Below 0.7, texture turns plastic and foliage turns mushy.
+
+### When quality 1.0 makes sense
+
+In Chromium browsers, 1.0 switches WebP to lossless. Use it when you want to stop adding loss and can accept a much larger file; the output will match the decoded JPEG exactly, but it cannot recover detail the JPEG discarded. Other browsers may keep the encoder lossy at 1.0, so check the measured size rather than assuming a mode.
+
+## EXIF, GPS and orientation
+
+The canvas output has no EXIF block. Camera model, lens, exposure settings, capture time, and GPS coordinates are dropped. For photos shared publicly, that is a privacy benefit: a phone photo can otherwise reveal a home address. For professional archives, it means this tool is not a metadata-preserving converter.
+
+Orientation works because browsers apply the source's EXIF orientation while decoding. A portrait photo taken with the phone sideways still comes out upright in the WebP, even though the orientation tag is gone. Color profiles are less predictable: most browsers draw into an sRGB canvas, so a wide-gamut or CMYK JPEG is converted to sRGB, and unusual profiles may not render as expected. Check the preview before publishing.
+
+## When the JPG should stay a JPG
+
+Keep the JPEG if the destination does not accept WebP, if the image must open in older desktop software, or if the file is already small enough that conversion adds risk without meaningful savings. Tiny images are a bad trade: a 40 KB JPEG might become a 36 KB WebP, which is not worth a compatibility question.
+
+Also keep the JPEG when you need EXIF for legal or archival reasons. This tool strips it by design. If you later need the opposite direction, WebP to JPG is available, and for images with transparency the right path is PNG to WebP rather than a JPEG round trip.
+
+## How the local conversion works
+
+The file is read with the File API, decoded by the browser, drawn to a canvas at the requested size, and encoded with **canvas.toBlob('image/webp', quality)**. Setting a longest edge is applied before encoding, so it reduces both dimensions and bytes in one pass. Nothing is uploaded; the privacy policy documents that boundary, and you can confirm it in your browser's network panel.
+
+## Frequently asked questions
+
+###
+
+### Does JPG to WebP lose quality?
+
+Yes at quality values below 1.0. The JPG is already lossy, and the conversion adds a second lossy encode. At 1.0 Chromium browsers use lossless WebP, but the source detail is still gone.
+
+###
+
+### Will the WebP be smaller than the JPG?
+
+Often, but not always. It depends on the image and the quality setting, so the tool reports the measured size instead of promising a percentage.
+
+###
+
+### Does the conversion keep EXIF or GPS data?
+
+No. Canvas output has no EXIF block, so camera details, GPS coordinates, and capture time are removed; the image orientation has already been applied during decoding.
+
+###
+
+### Can I convert a JPG with a CMYK color profile?
+
+It depends on the browser's decoder. Browsers generally draw into an sRGB canvas, so non-sRGB profiles are converted or may not display as expected; check the preview before using the output.
+
+## Related converters
+
+ConverterWebP to JPGConverterPNG to WebPConverterResize WebP
+
+## Bottom line
+
+JPG to WebP is a single extra encode, so make it count: use a high quality value, resize when the display size is smaller than the source, and convert from the best copy you have. The result is usually smaller, but verify it against your own image rather than assuming.
+
+---
+
+## PNG to WebP Converter - Keep Transparency
+
+URL: https://webpkit.app/png-to-webp
+
+This PNG to WebP converter keeps the alpha channel and usually produces a smaller file. The caveat: below quality 1.0 the browser's WebP encoder is lossy, and at 1.0 Chromium browsers switch to lossless, which can produce a much larger file. For logos and screenshots with fine text, compare the preview and the measured size before replacing your PNG.
+
+## What PNG to WebP keeps and drops
+
+A PNG is lossless and can carry an alpha channel. WebP can also be lossless and can also carry alpha, but those are encoder settings rather than automatic properties of the extension. The canvas API exposes a quality value: in Chromium browsers, values below 1.0 take the lossy WebP path and 1.0 takes the lossless path. At a quality below 1.0 the conversion keeps transparency and composition while discarding a small amount of detail.
+
+### Transparency and alpha
+
+If the PNG has transparent pixels, the canvas starts empty and the image is drawn over it. The WebP encoder writes the resulting alpha channel, so cut-out images stay cut out. Semi-transparent shadows survive as semi-transparent shadows. This is the main reason to choose WebP over JPG for interface graphics: JPG to WebP is a different conversation, but PNG sources keep their alpha here.
+
+One edge case: fully transparent regions in a lossy WebP are stored with limited precision. If you place the result on a very different background, faint halos can appear around soft edges. For strict compositing work, keep the PNG or use a lossless encoder outside the browser.
+
+### Lossy below 1.0, browser-dependent at 1.0
+
+At quality values below 1.0, Chromium-based browsers produce lossy WebP. At exactly 1.0 they switch the encoder to lossless, so the output can be pixel-identical to the decoded PNG and much larger. Other browsers may not make that switch. Because the canvas API does not expose a dedicated lossless flag, this page describes the result by measured size instead of promising a mode. If lossless storage is the requirement, keep the PNG.
+
+## Quality settings for graphics
+
+Graphics behave differently from photographs. Large flat areas compress well, but hard edges and small text expose artifacts quickly. The useful range for screenshots and UI assets is usually 0.85 to 0.95; for photographic PNGs, 0.8 is a sensible default. The top of the range is not linear: 0.95 is still lossy, while 1.0 may jump to lossless in Chromium and produce a much larger file.
+
+### Start at 0.8, then raise it for detail
+
+Convert at 0.8, look at the preview at 100% if you can, then raise the slider if edges look soft. The measured size updates with every change, so you can see exactly what the extra fidelity costs. There is no penalty for trying several values; the conversion reruns locally.
+
+### Text, line art and screenshots
+
+Thin strokes and small type are the first things lossy compression damages. If the image is a screenshot that people will read, a slightly larger PNG may be the better product decision even though WebP wins on bytes. Test one representative image before converting a whole set by hand.
+
+### There is no lossless switch here
+
+Some command-line encoders offer **-lossless**. The canvas API takes a quality number instead of a mode flag, and 1.0 may or may not engage lossless depending on the browser. This page therefore does not offer a guaranteed lossless WebP export; use PNG when that guarantee matters.
+
+## Browser support for WebP
+
+Modern browsers display WebP natively, including transparency, so a WebP served to a current browser renders like any other image. The remaining risk is not the browser but the rest of the pipeline: email clients, older design tools, some CMS upload filters, and print services may reject or mishandle WebP. Check the destination before you standardize on it.
+
+If you need to move back to a universally accepted format, convert WebP to PNG for lossless output with alpha, or use JPG for opaque photos. The WebP converter home page covers the format trade-offs in more depth.
+
+## When PNG should stay PNG
+
+Keep the PNG when the file is a master asset, when it will be edited repeatedly, when a lossless guarantee is part of the workflow, or when the image is small enough that the byte savings do not matter. Converting a 12 KB icon to a 10 KB WebP adds a compatibility question for almost no gain.
+
+## How the conversion runs locally
+
+The PNG is read with the File API, decoded by the browser, drawn to a canvas, and encoded with **canvas.toBlob('image/webp', quality)**. The optional longest-edge field scales the canvas first, which is often the biggest lever on file size. No request leaves the page, and the size numbers come from the encoded blob rather than from an estimate.
+
+## Frequently asked questions
+
+###
+
+### Does PNG to WebP keep transparency?
+
+Yes. The canvas keeps the alpha channel and the WebP encoder writes it, so transparent and semi-transparent pixels stay intact in the output.
+
+###
+
+### Is the WebP output lossless?
+
+Only at quality 1.0 in browsers that map that value to lossless WebP, such as Chromium-based ones. Below 1.0 the output is lossy, and other browsers may treat 1.0 differently.
+
+###
+
+### How much smaller will the file be?
+
+There is no fixed ratio. Flat graphics and screenshots often shrink a lot, while detailed PNGs may shrink modestly or even grow at high quality settings; the tool shows the measured result for your image.
+
+###
+
+### Will text stay sharp in WebP?
+
+Only at a high quality setting, and even then it depends on the image. Lossy WebP can soften thin strokes, so keep PNG for UI assets where crisp text is critical.
+
+## Related converters
+
+ConverterWebP to PNGConverterJPG to WebPConverterResize WebP
+
+## Bottom line
+
+PNG to WebP is a good trade when you want smaller transparent graphics for modern browsers and can accept lossy encoding. Keep quality high for text, verify the preview, and retain the PNG if you need a lossless master. The conversion runs entirely on your machine.
+
+---
+
+## Privacy Policy - WebPKit
+
+URL: https://webpkit.app/privacy
+
+WebPKit converts images on your device. Images are not uploaded, stored, or transmitted by the site, and the pages currently load no analytics or advertising scripts. This policy describes that boundary, the small amount of data a web host may see, and how to ask a question about it.
+
+## The short version
+
+There is no account and no image storage. When you choose a file, the browser reads it from your disk, decodes it in memory, and encodes the result in the same tab. The site's JavaScript contains no upload code. The only data that can reach a server is the ordinary request for the page itself, which any web host receives. Every converter on the site follows this pattern, and the about page describes the design constraints behind it.
+
+## Images and files
+
+Images are handled with the browser's File API and an in-memory canvas. The site does not send them anywhere, does not read them in the background, and does not keep them after you close or reload the tab. The downloaded output is created by your browser from a local blob; it is not fetched from a server.
+
+Because processing is local, the site cannot see your image's content, dimensions, metadata, or filename. If you use the converter on a work machine, the file is subject to that machine's policies, not to this site's. The same is true of browser extensions, which can read page content independently of WebPKit.
+
+You can verify the behavior yourself: open the developer tools network panel, convert a file, and inspect the requests. No request body contains the image. Loading a page and then going offline still allows conversion of files already on your device.
+
+## Cookies, analytics and advertising
+
+The site currently sets no cookies and loads no analytics, tag managers, heatmaps, or advertising scripts. There is no consent banner because there is nothing to consent to at this time. Pages are static HTML, one stylesheet, and one JavaScript file served from the same domain.
+
+If advertising or analytics is added later, this policy will be updated before the script ships. Advertising networks can set cookies and collect device information under their own policies; that would be disclosed here, along with the categories of data involved and any opt-out mechanism available. The same applies to affiliate links, which would be identified as such at the point of use.
+
+## Hosting and server logs
+
+WebPKit is a static site. The hosting provider serves files and may keep standard access logs, which typically include an IP address, the requested path, a timestamp, a referrer, and a user agent. Those logs are used for security, abuse prevention, and basic operations. The site does not combine them with other data to identify individuals, and it does not build visitor profiles.
+
+Log retention is controlled by the hosting provider's configuration. If you need details for a compliance review, contact the site and ask; the answer will describe what the provider actually records rather than a generic promise.
+
+## Third-party services
+
+The pages do not embed third-party fonts, scripts, videos, or tracking pixels. Internal links stay on this domain. If you email the address on the contact page, your message is handled by the email provider that hosts the mailbox, and that provider's policies apply to the message. Do not send an image attachment unless it is necessary; a description of the file and the browser you used is usually enough to diagnose a problem.
+
+## Your choices
+
+You can use the site without providing any personal information. You can block JavaScript, in which case the converters will not run but the explanatory content remains readable. You can clear your browser's cache and storage at any time; the site keeps no local state that would be lost. If you want a copy of this policy for your records, print or save this page.
+
+## Changes to this policy
+
+When the site changes in a way that affects data handling, the "Updated" date at the top of this page will change and the relevant section will be revised. Material changes, such as adding advertising or analytics, will be described in plain language rather than hidden in a legal appendix. Continuing to use the site after an update means you accept the revised policy.
+
+## Frequently asked questions
+
+###
+
+### Are my images uploaded to a server?
+
+No. Conversion happens in your browser with the File API and canvas, and the site has no upload endpoint for images.
+
+###
+
+### Does WebPKit use cookies or analytics?
+
+The site currently sets no cookies, loads no analytics, and includes no advertising scripts; the pages are static HTML, CSS, and JavaScript.
+
+###
+
+### What does the hosting provider log?
+
+Like most web hosts, the provider may keep standard access logs such as IP address, request path, and user agent for security and operations. WebPKit does not use those logs to identify visitors or build profiles.
+
+###
+
+### What happens if ads are added later?
+
+This policy will be updated before any advertising or analytics script is added, and the change will be described here rather than buried in a separate notice.
+
+## Related converters
+
+ConverterWebP to PNGConverterPNG to WebPConverterResize WebP
+
+## Bottom line
+
+WebPKit is built so that the sensitive part - your image - never leaves your device. The site collects no accounts, no image data, and no analytics at launch. Hosting logs may exist at the network edge, and any future advertising would be disclosed here before it appears.
+
+---
+
+## Resize WebP Images - Longest Edge, No Upload
+
+URL: https://webpkit.app/resize-webp
+
+Enter a target for the longest edge, drop a WebP, and the browser scales the image proportionally, then re-encodes it. Aspect ratio is preserved and the other dimension is computed, not entered. This is a single resample followed by a single encode, which is the least destructive way to hit a pixel budget.
+
+## How longest-edge resizing works
+
+You provide one number: the length of the longer side in pixels. The script compares the source width and height, finds the larger value, and computes a scale factor. Both dimensions are multiplied by that factor and rounded to whole pixels. The shorter side follows automatically, so the image is never stretched.
+
+For example, a 3000 × 2000 image resized to a longest edge of 1600 gets a scale of 1600 / 3000 = 0.5333. The output is 1600 × 1067. The one-pixel difference comes from rounding 1066.67, and it is normal. If the source is portrait, the height is the longest edge and the width scales instead.
+
+A target equal to the current longest edge changes nothing, and the tool still re-encodes if you press the button. That is useful for changing format, but it is not a free operation: it is a decode and encode cycle. If dimensions and format both already match your needs, skip the tool.
+
+## Downscaling, upscaling, and detail
+
+### Downscaling
+
+Making an image smaller is the common case, and it is usually a net win. Fewer pixels mean fewer bytes, faster layout, and less memory use in the browser. Canvas resampling with high smoothing averages neighboring pixels, which preserves overall tone but softens single-pixel detail. For photographs this is invisible at reasonable output sizes. For text and thin lines, downscaling can make small type unreadable, so choose a target that matches how the image will actually be displayed.
+
+### Upscaling
+
+Making an image larger cannot add real detail. The browser interpolates between existing pixels, so edges get softer and textures look smooth rather than sharper. Use upscaling only to satisfy a minimum dimension required by an upload form or a layout, not as a quality improvement. If you need a genuinely larger original, you need a better source file.
+
+## Resize and convert in one pass
+
+The tool draws the decoded image directly onto a canvas at the final size, then encodes that canvas once. This avoids the classic mistake of compressing at full size, scaling the compressed result, and compressing again. One resample and one encode is the shortest quality-preserving path available in a browser.
+
+The output format is your choice. Staying in WebP is the smallest option. Choosing PNG gives lossless output with alpha, which is useful if the resized image will be edited further; see WebP to PNG for that trade in detail. Choosing JPG flattens transparency onto white and is best kept for opaque photographs.
+
+## Transparency and quality after resizing
+
+Alpha is preserved for WebP and PNG output. Edges that were semi-transparent are resampled along with color, so a soft shadow stays soft, though very fine alpha detail can mute slightly. JPG output composites onto white before encoding, exactly as on the WebP to JPG page.
+
+Quality works the same way as elsewhere on this site: the slider controls the lossy encoder and PNG ignores it. Downscaling already removes detail, so quality 0.8 is usually enough after a resize; raising it to 1.0 does not bring back the pixels that were averaged away. If the resized WebP looks soft, the cause is more likely the target size than the quality value.
+
+## Choosing a target size
+
+Start from where the image will be shown. A full-width hero on a 1440 px layout rarely needs more than 1600 px on its longest edge, even on high-density screens. A thumbnail can be 400 px. An image that will be zoomed should keep more pixels, because the viewer is inspecting detail. When in doubt, resize to the largest size the layout can display and compare the preview before publishing.
+
+If you are preparing a batch, resize several representative images, note the measured sizes, and then pick one policy. This page intentionally handles one file at a time so each result can be checked. For automated pipelines, a command-line encoder is the better tool.
+
+## Local processing, no upload
+
+The file is read with the File API, decoded in the tab, resized on a canvas, and encoded with **canvas.toBlob**. No network request is made, and the output size shown is read from the resulting blob. You can confirm the absence of uploads in the browser's network panel. The same guarantee applies to PNG to WebP and every other converter on the site.
+
+## Frequently asked questions
+
+###
+
+### Does resizing a WebP reduce quality?
+
+Yes when the output stays lossy WebP. Downscaling averages pixels and the encoder compresses again, so the result is not identical; PNG output avoids the second compression but keeps the resampling change.
+
+###
+
+### Can I enlarge a WebP without losing sharpness?
+
+No. Upscaling interpolates pixels and cannot invent detail, so a larger canvas looks softer. The tool allows it, but use it only when a minimum dimension is required.
+
+###
+
+### Does the tool keep the aspect ratio?
+
+Yes. You set the longest edge and the other dimension is calculated from the source ratio, then rounded to the nearest pixel.
+
+###
+
+### Is the resize done before compression?
+
+Yes. The image is drawn to the target canvas first and that canvas is encoded, so the encoder works on the final dimensions rather than compressing and then scaling.
+
+## Related converters
+
+ConverterWebP to PNGConverterPNG to WebPConverterJPG to WebP
+
+## Bottom line
+
+Resize by the longest edge when you need a specific maximum dimension, not when you want to improve an image. Pick a target that matches the display size, keep the aspect ratio, and encode once. Downscaling saves real bytes; upscaling only makes a bigger file.
+
+---
+
+## WebP to JPG Converter - Local, White Background
+
+URL: https://webpkit.app/webp-to-jpg
+
+Converting WebP to JPG re-encodes the image with lossy JPEG compression and flattens any transparency onto white. Use it when a destination rejects WebP and the picture is photographic. If the image has a cut-out subject or a soft shadow, expect a visible white fringe where the alpha channel used to be.
+
+## What WebP to JPG actually changes
+
+Two things change at once. The pixel data is re-encoded with the JPEG algorithm, which is lossy, and the alpha channel is removed, because the JPEG format has no way to store it. Everything else - dimensions, aspect ratio, and the visible composition - stays the same unless you set a longest edge.
+
+### Transparency becomes white
+
+This tool fills the canvas with solid white before drawing the image. Any pixel that was fully transparent becomes white; any pixel that was partially transparent is blended with white according to its alpha value. The output JPG is fully opaque, which is what JPG consumers expect.
+
+### Soft edges and fringes
+
+A cut-out product photo on a transparent background is the worst case. Its anti-aliased edges carry a gradient of alpha values, and after flattening those values turn into a pale halo against the new background. On a white page the halo is usually invisible; on a dark page it is obvious. If the target background is not white, this conversion is not the right step - keep the WebP or convert WebP to PNG so the alpha survives and you can composite the image properly.
+
+## Quality: 0.8 is a reasonable start
+
+The slider maps to the JPEG encoder's quality argument. At 0.8 you get a file that looks clean at normal viewing distance for most photographs while cutting a large share of the bytes. At 0.6 the image starts to soften; at 0.4 block artifacts appear in gradients, skies, and skin tones. Raise it to 0.9 or higher for detailed textures, small text, or images that will be cropped and zoomed after delivery.
+
+### Artifacts to watch for
+
+JPEG works on 8×8 blocks and subsamples color information. The visible symptoms are ringing around hard edges, blocking in smooth gradients, and color smearing on fine red details. Screenshots and line art show these problems badly. If your source is UI work rather than a photo, PNG is the better output.
+
+### Why quality 1.0 is not lossless
+
+Even at 1.0 the JPEG encoder quantizes and discards information; it just does so with the finest tables it has. The output is high quality, not identical to the input. And because the source WebP was already lossy, the conversion always adds a second generation of artifacts. Convert once from the best original you have rather than trading formats repeatedly.
+
+## Metadata, EXIF and orientation
+
+Canvas output contains pixels only. Camera model, capture time, GPS coordinates, copyright fields, and color-profile tags are not written to the JPG. That is often desirable for privacy: a photo taken on a phone can otherwise reveal where it was shot. It also means you cannot rely on this tool to preserve provenance metadata.
+
+Orientation is handled during decoding. Browsers apply the EXIF orientation of the source when they draw the image, so the JPG shows the picture upright even though the orientation tag itself is gone. If you need the raw stored orientation, use a metadata-aware editor instead.
+
+## When to convert, and when to keep the WebP
+
+Convert when an upload form, email client, print service, or older application refuses WebP. JPG remains the most widely accepted photographic format. Keep the WebP when the image has transparency, when the destination is a modern browser, or when file size is the priority. A JPG of the same photo is often larger than the WebP it came from, so this is a compatibility move, not a size optimization.
+
+If size is the goal, adjust the longest edge before converting. Reducing a 4000 px photo to 1600 px does more for the byte count than moving the quality slider, and it is easy to do with the size field above or on the dedicated resize WebP page. To go the other direction later, use JPG to WebP.
+
+## How the local conversion works
+
+The file is read with the File API, decoded by the browser, drawn to a canvas, and encoded with **canvas.toBlob('image/jpeg', quality)**. No network request is made, so the image never leaves the machine. The reported output size and percentage difference come from the actual JPEG blob, which is why they can differ from what a desktop editor produces with different encoder settings.
+
+## Frequently asked questions
+
+###
+
+### Is WebP to JPG lossy?
+
+Yes. JPG is a lossy format, so this conversion discards some detail on top of whatever the WebP already lost; the quality slider controls how much.
+
+###
+
+### What happens to transparent areas in the WebP?
+
+They become white. JPG has no alpha channel, so the converter fills the canvas with white before drawing the image, and semi-transparent edges blend toward that white.
+
+###
+
+### Does the JPG keep EXIF data?
+
+No. Canvas output contains pixels only, so EXIF, GPS coordinates, and capture time are dropped. Orientation is applied by the browser during decoding, so the image is not rotated incorrectly.
+
+###
+
+### Can I keep the file size down?
+
+Yes, lower the quality slider and, if the image is larger than its display size, set a longest edge before converting. Both changes are applied before the JPEG encoder runs.
+
+## Related converters
+
+ConverterWebP to PNGConverterJPG to WebPConverterResize WebP
+
+## Bottom line
+
+Use WebP to JPG for opaque photographs that must open in software without WebP support. Accept the white background, start at quality 0.8, and resize before encoding if the file is too large. If transparency matters, output PNG instead.
+
+---
+
+## WebP to PNG Converter - Lossless Output, No Upload
+
+URL: https://webpkit.app/webp-to-png
+
+This converter decodes a WebP and re-encodes it as PNG without another lossy step, so the pixels you get match what the browser decoded, transparency included. Expect the PNG to be larger. That is the normal trade for a lossless container, not a sign that something went wrong.
+
+## What changes when WebP becomes PNG
+
+A WebP file can hold lossy pixels, lossless pixels, or an alpha channel, depending on how it was encoded. The browser decodes whichever variant it finds and hands the canvas an uncompressed bitmap. PNG then stores that bitmap losslessly. The practical result is a file that opens everywhere, keeps transparency, and is usually much bigger.
+
+### Alpha and transparency
+
+WebP supports transparency, but only when the encoder kept an alpha channel. If the source has one, this converter preserves it: the canvas is cleared to transparent, the decoded image is drawn over it, and the PNG encoder writes the alpha values. If the source WebP has no alpha, the PNG will be fully opaque. You cannot add transparency in this step, only carry through what exists.
+
+Semi-transparent pixels matter here. A logo with a soft shadow is not a binary mask; it has thousands of partial alpha values. Both WebP and PNG can store those values, so a round trip through this tool keeps them. JPEG cannot, which is why a WebP to JPG conversion flattens the same image onto white.
+
+### File size usually grows
+
+PNG compresses without discarding data, using prediction filters and DEFLATE. On flat graphics it can be efficient. On photographs it is not: a WebP photo that is a few hundred kilobytes may become a multi-megabyte PNG. The exact increase depends on image content, so this tool reports the measured result rather than promising a range. If size matters more than lossless storage, PNG to WebP conversion is the opposite trade.
+
+## When PNG is the right target
+
+Choose PNG when a downstream tool or person needs the image exactly as decoded. Typical cases:
+
+- Editing in an application that does not read WebP, or that re-saves aggressively.
+
+- Screenshots, diagrams, and UI assets where sharp edges and text must stay sharp.
+
+- Images with transparency that will be placed on an unknown background.
+
+- Archival copies where another lossy generation is unacceptable.
+
+PNG is also the safe choice when you are unsure. It is the most predictable output this tool can produce: no quality decision, no chroma subsampling, no block artifacts.
+
+## When PNG is the wrong target
+
+If the image is a photograph and the destination is a web page, PNG will cost bandwidth without a visible benefit. A JPG or a WebP will look the same at normal sizes and download faster. PNG is also a poor fit for very large images that only need a preview. In those cases, use the size control above to resize the WebP before or during conversion, or keep the original WebP.
+
+## How this conversion runs
+
+The script reads the file with the File API, decodes it with **createImageBitmap** when available (falling back to an Image element), draws it onto a canvas, and calls **canvas.toBlob** with the PNG MIME type. Because PNG is lossless, the quality slider is disabled when PNG is selected. The resize field still applies: if you set a longest edge, the canvas is scaled first and the PNG stores the scaled pixels.
+
+Metadata does not survive. EXIF fields, XMP packets, and textual chunks are not copied by canvas; the output contains pixels and alpha only. Most browsers also draw into an sRGB canvas, so wide-gamut profiles are not preserved as tags. If you need the original metadata, keep the source file.
+
+Nothing is uploaded at any point. The encoder runs in the same tab that displays this page, and you can confirm the absence of network activity in your browser's developer tools.
+
+## Frequently asked questions
+
+###
+
+### Is WebP to PNG lossless?
+
+The PNG step is lossless, but it cannot recover detail that a lossy WebP already discarded. You get an exact copy of the decoded pixels, not of the pre-WebP original.
+
+###
+
+### Does transparency survive WebP to PNG conversion?
+
+Yes. PNG and WebP both support an alpha channel, so transparent pixels remain transparent and the PNG keeps a real alpha channel rather than a white background.
+
+###
+
+### Why is the PNG larger than the WebP?
+
+PNG stores pixels without lossy compression, so photographic images often expand several times over. The exact ratio depends on the image, not on a fixed rule.
+
+###
+
+### Does WebPKit upload my WebP file?
+
+No. The file is read locally with the File API and re-encoded by your browser; the script makes no network requests.
+
+## Related converters
+
+ConverterPNG to WebPConverterWebP to JPGConverterResize WebP
+
+## Bottom line
+
+WebP to PNG is the right move when you need lossless pixels or guaranteed transparency and can afford a larger file. The conversion preserves alpha and adds no new compression loss, but it cannot undo loss from the original WebP. Keep the file local, check the measured size, and convert only once.
+

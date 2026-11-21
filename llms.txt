@@ -1,0 +1,18 @@
+# WebPKit
+
+> Browser-based WebP, PNG and JPG converter. Images are processed locally and never uploaded.
+
+## Converters
+
+- [WebP converter for PNG and JPG, in your browser](https://webpkit.app/): Convert WebP to PNG or JPG, and PNG or JPG to WebP, inside your browser. Local canvas processing, transparency handled, real output size.
+- [JPG to WebP converter for photographs](https://webpkit.app/jpg-to-webp): Convert JPG to WebP on your device. One decode, one encode, adjustable quality, and EXIF stripped. No server, no upload, no batch.
+- [PNG to WebP converter that keeps transparency](https://webpkit.app/png-to-webp): Convert PNG to WebP in your browser. Alpha is preserved, quality is adjustable, and you see the real before and after file size. No uploads.
+- [Resize WebP images by their longest edge](https://webpkit.app/resize-webp): Resize a WebP by its longest edge while keeping the aspect ratio, then save as WebP, PNG or JPG. Everything runs in your browser.
+- [WebP to JPG converter with a white background](https://webpkit.app/webp-to-jpg): Convert WebP to JPG without uploading. Transparency is flattened onto white, quality is adjustable, and the output size is measured locally.
+- [WebP to PNG converter, lossless in your browser](https://webpkit.app/webp-to-png): Convert WebP to PNG in your browser. Transparent pixels are preserved, the PNG step is lossless, and the file stays on your device.
+
+## Site
+
+- [About WebPKit, a browser-only image converter](https://webpkit.app/about): WebPKit is a static, client-side image converter. No accounts, no uploads, no tracking scripts - just canvas conversion for WebP, PNG and JPG.
+- [Contact WebPKit](https://webpkit.app/contact): Reach WebPKit by email for bug reports, conversion questions, or privacy requests. No contact form, no tracking, no file uploads.
+- [Privacy policy: what WebPKit does and does not collect](https://webpkit.app/privacy): WebPKit processes images on your device. This policy explains what the site does not collect, what hosting logs may exist, and how to ask questions.

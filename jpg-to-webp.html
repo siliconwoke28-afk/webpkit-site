@@ -12,9 +12,19 @@
 <meta property="og:description" content="Convert JPG photos to WebP in the browser. Adjustable quality, measured size, nothing uploaded.">
 <meta property="og:url" content="https://webpkit.app/jpg-to-webp">
 <link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://webpkit.app/#organization","name":"WebPKit","url":"https://webpkit.app/","logo":{"@type":"ImageObject","url":"https://webpkit.app/assets/og.png","width":1200,"height":630},"email":"wk@webpkit.app","sameAs":["https://github.com/siliconwoke28-afk/webpkit-site"]},{"@type":"WebSite","@id":"https://webpkit.app/#website","url":"https://webpkit.app/","name":"WebPKit","publisher":{"@id":"https://webpkit.app/#organization"}},{"@type":"WebPage","@id":"https://webpkit.app/jpg-to-webp#webpage","url":"https://webpkit.app/jpg-to-webp","name":"JPG to WebP Converter - Re-encode Photos Locally","description":"Convert JPG to WebP on your device. One decode, one encode, adjustable quality, and EXIF stripped. No server, no upload, no batch.","isPartOf":{"@id":"https://webpkit.app/#website"},"about":{"@id":"https://webpkit.app/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://webpkit.app/"},{"@type":"ListItem","position":2,"name":"JPG to WebP Converter - Re-encode Photos Locally","item":"https://webpkit.app/jpg-to-webp"}]}]}</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does JPG to WebP lose quality?","acceptedAnswer":{"@type":"Answer","text":"Yes at quality values below 1.0. The JPG is already lossy, and the conversion adds a second lossy encode. At 1.0 Chromium browsers use lossless WebP, but the source detail is still gone."}},{"@type":"Question","name":"Will the WebP be smaller than the JPG?","acceptedAnswer":{"@type":"Answer","text":"Often, but not always. It depends on the image and the quality setting, so the tool reports the measured size instead of promising a percentage."}},{"@type":"Question","name":"Does the conversion keep EXIF or GPS data?","acceptedAnswer":{"@type":"Answer","text":"No. Canvas output has no EXIF block, so camera details, GPS coordinates, and capture time are removed; the image orientation has already been applied during decoding."}},{"@type":"Question","name":"Can I convert a JPG with a CMYK color profile?","acceptedAnswer":{"@type":"Answer","text":"It depends on the browser's decoder. Browsers generally draw into an sRGB canvas, so non-sRGB profiles are converted or may not display as expected; check the preview before using the output."}}]}
 </script>
+  <meta property="og:site_name" content="WebPKit">
+  <meta property="og:image" content="https://webpkit.app/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="WebPKit browser-based WebP, PNG and JPG converter">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JPG to WebP Converter - Re-encode Photos Locally">
+  <meta name="twitter:description" content="Convert JPG to WebP on your device. One decode, one encode, adjustable quality, and EXIF stripped. No server, no upload, no batch.">
+  <meta name="twitter:image" content="https://webpkit.app/assets/og.png">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -152,17 +162,15 @@
       <h2>How the local conversion works</h2>
       <p>The file is read with the File API, decoded by the browser, drawn to a canvas at the requested size, and encoded with <strong>canvas.toBlob('image/webp', quality)</strong>. Setting a longest edge is applied before encoding, so it reduces both dimensions and bytes in one pass. Nothing is uploaded; the <a href="/privacy">privacy policy</a> documents that boundary, and you can confirm it in your browser's network panel.</p>
 
-      <h2>Frequently asked questions</h2>
-      <h3>Does JPG to WebP lose quality?</h3>
-      <p>Yes at quality values below 1.0. The JPG is already lossy, and the conversion adds a second lossy encode. At 1.0 Chromium browsers use lossless WebP, but the source detail is still gone.</p>
-      <h3>Will the WebP be smaller than the JPG?</h3>
-      <p>Often, but not always. It depends on the image and the quality setting, so the tool reports the measured size instead of promising a percentage.</p>
-      <h3>Does the conversion keep EXIF or GPS data?</h3>
-      <p>No. Canvas output has no EXIF block, so camera details, GPS coordinates, and capture time are removed; the image orientation has already been applied during decoding.</p>
-      <h3>Can I convert a JPG with a CMYK color profile?</h3>
-      <p>It depends on the browser's decoder. Browsers generally draw into an sRGB canvas, so non-sRGB profiles are converted or may not display as expected; check the preview before using the output.</p>
+      <section class="seo-faq" aria-labelledby="faq-title">
+<h2 id="faq-title">Frequently asked questions</h2>
+      <details><summary><h3>Does JPG to WebP lose quality?</h3></summary><p>Yes at quality values below 1.0. The JPG is already lossy, and the conversion adds a second lossy encode. At 1.0 Chromium browsers use lossless WebP, but the source detail is still gone.</p></details>
+      <details><summary><h3>Will the WebP be smaller than the JPG?</h3></summary><p>Often, but not always. It depends on the image and the quality setting, so the tool reports the measured size instead of promising a percentage.</p></details>
+      <details><summary><h3>Does the conversion keep EXIF or GPS data?</h3></summary><p>No. Canvas output has no EXIF block, so camera details, GPS coordinates, and capture time are removed; the image orientation has already been applied during decoding.</p></details>
+      <details><summary><h3>Can I convert a JPG with a CMYK color profile?</h3></summary><p>It depends on the browser's decoder. Browsers generally draw into an sRGB canvas, so non-sRGB profiles are converted or may not display as expected; check the preview before using the output.</p></details>
 
-      <section class="related" aria-labelledby="related-title">
+      </section>
+<section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
           <a href="/webp-to-jpg"><span class="r-label">Converter</span><span class="r-title">WebP to JPG</span></a>
@@ -171,7 +179,7 @@
         </div>
       </section>
 
-      <section class="bottom" aria-labelledby="bottom-title">
+      <section class="bottom seo-summary" aria-labelledby="bottom-title">
         <h2 id="bottom-title">Bottom line</h2>
         <p>JPG to WebP is a single extra encode, so make it count: use a high quality value, resize when the display size is smaller than the source, and convert from the best copy you have. The result is usually smaller, but verify it against your own image rather than assuming.</p>
       </section>
