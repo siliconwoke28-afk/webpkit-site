@@ -1,5 +1,5 @@
 /*
-  Link: <https://webpkit.app/llms.txt>; rel="llms-txt", <https://webpkit.app/sitemap.xml>; rel="sitemap"
+  Link: <https://webpkit.app/.well-known/ai-catalog>; rel="ai-catalog", <https://webpkit.app/auth.md>; rel="service-doc", <https://webpkit.app/llms.txt>; rel="llms-txt", <https://webpkit.app/sitemap.xml>; rel="sitemap"
   Vary: Accept
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -30,3 +30,9 @@
   Content-Type: text/plain; charset=utf-8
 /llms-full.txt
   Content-Type: text/plain; charset=utf-8
+
+/auth.md
+  Content-Type: text/markdown; charset=utf-8
+
+/.well-known/*
+  Content-Type: application/json; charset=utf-8

@@ -1,0 +1,41 @@
+{
+  "specVersion": "v0.91",
+  "host": {
+    "name": "WebPKit",
+    "url": "https://webpkit.app",
+    "domain": "webpkit.app"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:webpkit.app:content:llms",
+      "displayName": "WebPKit llms.txt site summary",
+      "type": "text/plain",
+      "url": "https://webpkit.app/llms.txt",
+      "representativeQueries": [
+        "WebPKit site summary for AI agents",
+        "browser-based WebP converter",
+        "convert WebP to PNG without uploading"
+      ]
+    },
+    {
+      "identifier": "urn:air:webpkit.app:content:markdown",
+      "displayName": "WebPKit Markdown twin of the homepage",
+      "type": "text/markdown",
+      "url": "https://webpkit.app/index.md",
+      "representativeQueries": [
+        "WebP converter page as Markdown",
+        "convert PNG and JPG to WebP locally"
+      ]
+    },
+    {
+      "identifier": "urn:air:webpkit.app:content:sitemap",
+      "displayName": "WebPKit sitemap",
+      "type": "application/xml",
+      "url": "https://webpkit.app/sitemap.xml",
+      "representativeQueries": [
+        "list WebPKit converter pages",
+        "WebPKit image conversion tools"
+      ]
+    }
+  ]
+}

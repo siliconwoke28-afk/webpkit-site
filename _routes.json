@@ -1,6 +1,8 @@
 {
   "version": 1,
-  "include": ["/*"],
+  "include": [
+    "/*"
+  ],
   "exclude": [
     "/assets/*",
     "/index.md",
@@ -16,6 +18,8 @@
     "/llms-full.txt",
     "/sitemap.xml",
     "/robots.txt",
-    "/404.html"
+    "/404.html",
+    "/auth.md",
+    "/.well-known/*"
   ]
 }

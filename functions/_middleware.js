@@ -14,6 +14,8 @@ function prefersMarkdown(accept = '') {
 }
 
 const LINK = [
+  '<https://webpkit.app/.well-known/ai-catalog>; rel="ai-catalog"',
+  '<https://webpkit.app/auth.md>; rel="service-doc"',
   '<https://webpkit.app/llms.txt>; rel="llms-txt"',
   '<https://webpkit.app/sitemap.xml>; rel="sitemap"'
 ].join(', ');
