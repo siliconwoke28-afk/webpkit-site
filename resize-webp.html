@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resize WebP Images - Longest Edge, No Upload</title>
+<meta name="description" content="Resize a WebP by its longest edge while keeping the aspect ratio, then save as WebP, PNG or JPG. Everything runs in your browser.">
+<link rel="canonical" href="https://webpkit.app/resize-webp.html">
+<meta name="theme-color" content="#0b0d10">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Resize WebP Images - Longest Edge, No Upload">
+<meta property="og:description" content="Scale a WebP by its longest edge in the browser. Aspect ratio kept, output format selectable.">
+<meta property="og:url" content="https://webpkit.app/resize-webp.html">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does resizing a WebP reduce quality?","acceptedAnswer":{"@type":"Answer","text":"Yes when the output stays lossy WebP. Downscaling averages pixels and the encoder compresses again, so the result is not identical; PNG output avoids the second compression but keeps the resampling change."}},{"@type":"Question","name":"Can I enlarge a WebP without losing sharpness?","acceptedAnswer":{"@type":"Answer","text":"No. Upscaling interpolates pixels and cannot invent detail, so a larger canvas looks softer. The tool allows it, but use it only when a minimum dimension is required."}},{"@type":"Question","name":"Does the tool keep the aspect ratio?","acceptedAnswer":{"@type":"Answer","text":"Yes. You set the longest edge and the other dimension is calculated from the source ratio, then rounded to the nearest pixel."}},{"@type":"Question","name":"Is the resize done before compression?","acceptedAnswer":{"@type":"Answer","text":"Yes. The image is drawn to the target canvas first and that canvas is encoded, so the encoder works on the final dimensions rather than compressing and then scaling."}}]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topline" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="index.html" aria-label="WebPKit home">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="logo-text">WebP<span>Kit</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Converter</a>
+      <a href="index.html#formats">Formats</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li>Converters</li>
+        <li aria-current="page">Resize WebP</li>
+      </ol>
+    </nav>
+
+    <section class="hero">
+      <h1>Resize WebP images by their longest edge</h1>
+      <p class="page-meta"><span>Updated 2026-11-17</span><span>By WebPKit</span><span>5 min read</span></p>
+      <p class="lede">Enter a target for the longest edge, drop a WebP, and the browser scales the image proportionally, then re-encodes it. Aspect ratio is preserved and the other dimension is computed, not entered. This is a single resample followed by a single encode, which is the least destructive way to hit a pixel budget.</p>
+    </section>
+
+    <section class="workbench" aria-label="WebP resizer">
+      <div class="grid" id="converter" data-output="webp">
+        <div class="col-8">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="label">01 / Input</span>
+              <span class="label">One image · max 25 MB</span>
+            </div>
+            <input class="sr-only" type="file" id="file" accept="image/*" tabindex="-1">
+            <label class="dropzone" id="dropzone" for="file" tabindex="0" role="button" aria-describedby="drop-help">
+              <span class="drop-icon" aria-hidden="true">+</span>
+              <span class="drop-title">Drop a WebP here</span>
+              <span class="drop-sub">or click to browse - other formats are accepted too</span>
+              <span class="drop-note" id="drop-help">Processed on this device. Never uploaded.</span>
+            </label>
+            <dl class="filemeta" id="filemeta" hidden>
+              <div><dt>Source</dt><dd id="meta-format">Not loaded</dd></div>
+              <div><dt>Dimensions</dt><dd id="meta-dims">Not loaded</dd></div>
+              <div><dt>File size</dt><dd id="meta-size">Not loaded</dd></div>
+            </dl>
+            <p class="status" id="status" role="status" aria-live="polite">No image loaded.</p>
+            <noscript><p class="status is-error">This converter needs JavaScript. The rest of the page still works without it.</p></noscript>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="label">02 / Output</span>
+              <span class="label">Scaled</span>
+            </div>
+            <fieldset class="field">
+              <legend class="label">Format</legend>
+              <div class="seg">
+                <input type="radio" id="fmt-webp" name="format" value="webp" checked>
+                <label for="fmt-webp">WebP</label>
+                <input type="radio" id="fmt-png" name="format" value="png">
+                <label for="fmt-png">PNG</label>
+                <input type="radio" id="fmt-jpg" name="format" value="jpg">
+                <label for="fmt-jpg">JPG</label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <div class="field-row">
+                <label class="label" for="quality">Quality</label>
+                <output class="output-val" id="quality-out" for="quality">0.80</output>
+              </div>
+              <input type="range" id="quality" min="0.4" max="1" step="0.05" value="0.8">
+              <p class="hint" id="quality-hint">Lossy encoding. 0.80 is a common starting point.</p>
+            </div>
+            <div class="field">
+              <label class="label" for="maxedge">Longest edge (px)</label>
+              <input type="number" id="maxedge" min="16" max="12000" step="1" inputmode="numeric" placeholder="e.g. 1600">
+              <p class="hint">Required to resize. Aspect ratio is kept.</p>
+            </div>
+            <button class="btn" id="convert" type="button" disabled>Resize image</button>
+            <div class="result" id="result" hidden>
+              <div class="result-preview"><img id="preview" alt="Preview of the resized image"></div>
+              <dl class="stats">
+                <div><dt>Output</dt><dd id="out-format">Not loaded</dd></div>
+                <div><dt>Dimensions</dt><dd id="out-dims">Not loaded</dd></div>
+                <div><dt>Size</dt><dd id="out-size">Not loaded</dd></div>
+                <div><dt>vs original</dt><dd id="out-delta">Not loaded</dd></div>
+              </dl>
+              <a class="btn btn-download" id="download" download>Download image</a>
+            </div>
+            <p class="status" id="result-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+      <p class="tool-note">One image per run. Batch conversion is not supported. Nothing is uploaded.</p>
+    </section>
+
+    <article class="article">
+      <h2>How longest-edge resizing works</h2>
+      <p>You provide one number: the length of the longer side in pixels. The script compares the source width and height, finds the larger value, and computes a scale factor. Both dimensions are multiplied by that factor and rounded to whole pixels. The shorter side follows automatically, so the image is never stretched.</p>
+      <p>For example, a 3000 × 2000 image resized to a longest edge of 1600 gets a scale of 1600 / 3000 = 0.5333. The output is 1600 × 1067. The one-pixel difference comes from rounding 1066.67, and it is normal. If the source is portrait, the height is the longest edge and the width scales instead.</p>
+      <p>A target equal to the current longest edge changes nothing, and the tool still re-encodes if you press the button. That is useful for changing format, but it is not a free operation: it is a decode and encode cycle. If dimensions and format both already match your needs, skip the tool.</p>
+
+      <h2>Downscaling, upscaling, and detail</h2>
+      <h3>Downscaling</h3>
+      <p>Making an image smaller is the common case, and it is usually a net win. Fewer pixels mean fewer bytes, faster layout, and less memory use in the browser. Canvas resampling with high smoothing averages neighboring pixels, which preserves overall tone but softens single-pixel detail. For photographs this is invisible at reasonable output sizes. For text and thin lines, downscaling can make small type unreadable, so choose a target that matches how the image will actually be displayed.</p>
+      <h3>Upscaling</h3>
+      <p>Making an image larger cannot add real detail. The browser interpolates between existing pixels, so edges get softer and textures look smooth rather than sharper. Use upscaling only to satisfy a minimum dimension required by an upload form or a layout, not as a quality improvement. If you need a genuinely larger original, you need a better source file.</p>
+
+      <h2>Resize and convert in one pass</h2>
+      <p>The tool draws the decoded image directly onto a canvas at the final size, then encodes that canvas once. This avoids the classic mistake of compressing at full size, scaling the compressed result, and compressing again. One resample and one encode is the shortest quality-preserving path available in a browser.</p>
+      <p>The output format is your choice. Staying in WebP is the smallest option. Choosing PNG gives lossless output with alpha, which is useful if the resized image will be edited further; see <a href="webp-to-png.html">WebP to PNG</a> for that trade in detail. Choosing JPG flattens transparency onto white and is best kept for opaque photographs.</p>
+
+      <h2>Transparency and quality after resizing</h2>
+      <p>Alpha is preserved for WebP and PNG output. Edges that were semi-transparent are resampled along with color, so a soft shadow stays soft, though very fine alpha detail can mute slightly. JPG output composites onto white before encoding, exactly as on the <a href="webp-to-jpg.html">WebP to JPG</a> page.</p>
+      <p>Quality works the same way as elsewhere on this site: the slider controls the lossy encoder and PNG ignores it. Downscaling already removes detail, so quality 0.8 is usually enough after a resize; raising it to 1.0 does not bring back the pixels that were averaged away. If the resized WebP looks soft, the cause is more likely the target size than the quality value.</p>
+
+      <h2>Choosing a target size</h2>
+      <p>Start from where the image will be shown. A full-width hero on a 1440 px layout rarely needs more than 1600 px on its longest edge, even on high-density screens. A thumbnail can be 400 px. An image that will be zoomed should keep more pixels, because the viewer is inspecting detail. When in doubt, resize to the largest size the layout can display and compare the preview before publishing.</p>
+      <p>If you are preparing a batch, resize several representative images, note the measured sizes, and then pick one policy. This page intentionally handles one file at a time so each result can be checked. For automated pipelines, a command-line encoder is the better tool.</p>
+
+      <h2>Local processing, no upload</h2>
+      <p>The file is read with the File API, decoded in the tab, resized on a canvas, and encoded with <strong>canvas.toBlob</strong>. No network request is made, and the output size shown is read from the resulting blob. You can confirm the absence of uploads in the browser's network panel. The same guarantee applies to <a href="png-to-webp.html">PNG to WebP</a> and every other converter on the site.</p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>Does resizing a WebP reduce quality?</h3>
+      <p>Yes when the output stays lossy WebP. Downscaling averages pixels and the encoder compresses again, so the result is not identical; PNG output avoids the second compression but keeps the resampling change.</p>
+      <h3>Can I enlarge a WebP without losing sharpness?</h3>
+      <p>No. Upscaling interpolates pixels and cannot invent detail, so a larger canvas looks softer. The tool allows it, but use it only when a minimum dimension is required.</p>
+      <h3>Does the tool keep the aspect ratio?</h3>
+      <p>Yes. You set the longest edge and the other dimension is calculated from the source ratio, then rounded to the nearest pixel.</p>
+      <h3>Is the resize done before compression?</h3>
+      <p>Yes. The image is drawn to the target canvas first and that canvas is encoded, so the encoder works on the final dimensions rather than compressing and then scaling.</p>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">Related converters</h2>
+        <div class="related-grid">
+          <a href="webp-to-png.html"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
+          <a href="png-to-webp.html"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
+          <a href="jpg-to-webp.html"><span class="r-label">Converter</span><span class="r-title">JPG to WebP</span></a>
+        </div>
+      </section>
+
+      <section class="bottom" aria-labelledby="bottom-title">
+        <h2 id="bottom-title">Bottom line</h2>
+        <p>Resize by the longest edge when you need a specific maximum dimension, not when you want to improve an image. Pick a target that matches the display size, keep the aspect ratio, and encode once. Downscaling saves real bytes; upscaling only makes a bigger file.</p>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+      <a href="sitemap.xml">Sitemap</a>
+    </nav>
+    <p class="footer-meta">
+      <strong>Files never leave your device.</strong>
+      <span class="footer-line">© 2026 WebPKit. Converted locally in your browser.</span>
+    </p>
+  </div>
+</footer>
+<script src="assets/app.js" defer></script>
+</body>
+</html>
