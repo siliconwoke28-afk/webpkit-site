@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About WebPKit - A Browser-Only Image Converter</title>
 <meta name="description" content="WebPKit is a static, client-side image converter. No accounts, no uploads, no tracking scripts - just canvas conversion for WebP, PNG and JPG.">
-<link rel="canonical" href="https://webpkit.app/about.html">
+<link rel="canonical" href="https://webpkit.app/about">
 <meta name="theme-color" content="#0b0d10">
 <meta property="og:type" content="website">
 <meta property="og:title" content="About WebPKit - A Browser-Only Image Converter">
 <meta property="og:description" content="A static image converter that runs entirely in your browser.">
-<meta property="og:url" content="https://webpkit.app/about.html">
+<meta property="og:url" content="https://webpkit.app/about">
 <link rel="stylesheet" href="assets/site.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Who runs WebPKit?","acceptedAnswer":{"@type":"Answer","text":"WebPKit is an independent static site focused on browser-based image conversion; it has no accounts and no editorial team behind a content feed."}},{"@type":"Question","name":"Does WebPKit upload or store images?","acceptedAnswer":{"@type":"Answer","text":"No. The converters read files locally with the File API and encode them in the browser; there is no upload endpoint and no server-side image storage."}},{"@type":"Question","name":"Why only one image at a time?","acceptedAnswer":{"@type":"Answer","text":"Because the tool is built for careful single conversions: memory stays bounded, the size comparison stays meaningful, and each result can be checked before download."}},{"@type":"Question","name":"How is WebPKit funded?","acceptedAnswer":{"@type":"Answer","text":"The site is currently free and has no ads or affiliate links; if that changes, the privacy page will describe any third-party scripts before they are added."}}]}
@@ -21,15 +21,15 @@
 <div class="topline" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="logo" href="index.html" aria-label="WebPKit home">
+    <a class="logo" href="/" aria-label="WebPKit home">
       <span class="logo-mark" aria-hidden="true"></span>
       <span class="logo-text">WebP<span>Kit</span></span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html">Converter</a>
-      <a href="index.html#formats">Formats</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="about.html" aria-current="page">About</a>
+      <a href="/">Converter</a>
+      <a href="/#formats">Formats</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about" aria-current="page">About</a>
     </nav>
   </div>
 </header>
@@ -38,7 +38,7 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li aria-current="page">About</li>
       </ol>
     </nav>
@@ -51,7 +51,7 @@
 
     <article class="article">
       <h2>What WebPKit is</h2>
-      <p>The site is a set of focused pages: a general <a href="index.html">WebP converter</a>, dedicated pages for WebP to PNG, WebP to JPG, PNG to WebP, JPG to WebP, and a resizer for WebP images. Each page carries the same converter with a different default output and its own explanation of the trade-offs. Nothing is stored between visits: there are no accounts, no saved history, and no image library.</p>
+      <p>The site is a set of focused pages: a general <a href="/">WebP converter</a>, dedicated pages for WebP to PNG, WebP to JPG, PNG to WebP, JPG to WebP, and a resizer for WebP images. Each page carries the same converter with a different default output and its own explanation of the trade-offs. Nothing is stored between visits: there are no accounts, no saved history, and no image library.</p>
       <p>The tool reads a file you choose, decodes it with the browser, draws it to a canvas, and encodes the result. That is the whole pipeline. The bytes never travel over the network, so the only copy of your image is the one on your disk and the temporary memory the browser uses while the tab is open.</p>
 
       <h2>The constraints we chose</h2>
@@ -70,7 +70,7 @@
 
       <h2>How to verify the privacy claim</h2>
       <p>You do not have to take the sentence in the footer on faith. Open your browser's developer tools, switch to the network panel, and convert an image. No request carries the file. You can also load a page, disconnect from the network, and convert an image that is already on your device; the conversion still works because the encoder is local.</p>
-      <p>The <a href="privacy.html">privacy policy</a> describes what the site does not collect, what a hosting provider might log at the network edge, and how to ask a question about it. If you find a discrepancy between the policy and the behavior, please report it through the <a href="contact.html">contact page</a>.</p>
+      <p>The <a href="/privacy">privacy policy</a> describes what the site does not collect, what a hosting provider might log at the network edge, and how to ask a question about it. If you find a discrepancy between the policy and the behavior, please report it through the <a href="/contact">contact page</a>.</p>
 
       <h2>Who the site is for</h2>
       <p>It is for people who need one image converted now: a WebP that a client's CMS will not accept, a PNG that is too large to email, a screenshot that needs a smaller longest edge. It is not a photo editor, an asset manager, or a batch pipeline. It does not crop, rotate, retouch, or strip metadata selectively. Those are different tools, and pretending otherwise would make this one worse at the job it actually does.</p>
@@ -89,9 +89,9 @@
       <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
-          <a href="webp-to-png.html"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
-          <a href="png-to-webp.html"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
-          <a href="resize-webp.html"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+          <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
+          <a href="/png-to-webp"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
+          <a href="/resize-webp"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
         </div>
       </section>
 
@@ -106,9 +106,9 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <nav class="footer-nav" aria-label="Footer">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
     <p class="footer-meta">

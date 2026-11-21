@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WebP to PNG Converter - Lossless Output, No Upload</title>
 <meta name="description" content="Convert WebP to PNG in your browser. Transparent pixels are preserved, the PNG step is lossless, and the file stays on your device.">
-<link rel="canonical" href="https://webpkit.app/webp-to-png.html">
+<link rel="canonical" href="https://webpkit.app/webp-to-png">
 <meta name="theme-color" content="#0b0d10">
 <meta property="og:type" content="website">
 <meta property="og:title" content="WebP to PNG Converter - Lossless Output, No Upload">
 <meta property="og:description" content="Convert WebP to PNG locally. Alpha preserved, no upload, measured output size.">
-<meta property="og:url" content="https://webpkit.app/webp-to-png.html">
+<meta property="og:url" content="https://webpkit.app/webp-to-png">
 <link rel="stylesheet" href="assets/site.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is WebP to PNG lossless?","acceptedAnswer":{"@type":"Answer","text":"The PNG step is lossless, but it cannot recover detail that a lossy WebP already discarded. You get an exact copy of the decoded pixels, not of the pre-WebP original."}},{"@type":"Question","name":"Does transparency survive WebP to PNG conversion?","acceptedAnswer":{"@type":"Answer","text":"Yes. PNG and WebP both support an alpha channel, so transparent pixels remain transparent and the PNG keeps a real alpha channel rather than a white background."}},{"@type":"Question","name":"Why is the PNG larger than the WebP?","acceptedAnswer":{"@type":"Answer","text":"PNG stores pixels without lossy compression, so photographic images often expand several times over. The exact ratio depends on the image, not on a fixed rule."}},{"@type":"Question","name":"Does WebPKit upload my WebP file?","acceptedAnswer":{"@type":"Answer","text":"No. The file is read locally with the File API and re-encoded by your browser; the script makes no network requests."}}]}
@@ -21,15 +21,15 @@
 <div class="topline" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="logo" href="index.html" aria-label="WebPKit home">
+    <a class="logo" href="/" aria-label="WebPKit home">
       <span class="logo-mark" aria-hidden="true"></span>
       <span class="logo-text">WebP<span>Kit</span></span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Converter</a>
-      <a href="index.html#formats">Formats</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="about.html">About</a>
+      <a href="/" aria-current="page">Converter</a>
+      <a href="/#formats">Formats</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
     </nav>
   </div>
 </header>
@@ -38,7 +38,7 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li>Converters</li>
         <li aria-current="page">WebP to PNG</li>
       </ol>
@@ -128,10 +128,10 @@
 
       <h3>Alpha and transparency</h3>
       <p>WebP supports transparency, but only when the encoder kept an alpha channel. If the source has one, this converter preserves it: the canvas is cleared to transparent, the decoded image is drawn over it, and the PNG encoder writes the alpha values. If the source WebP has no alpha, the PNG will be fully opaque. You cannot add transparency in this step, only carry through what exists.</p>
-      <p>Semi-transparent pixels matter here. A logo with a soft shadow is not a binary mask; it has thousands of partial alpha values. Both WebP and PNG can store those values, so a round trip through this tool keeps them. JPEG cannot, which is why a <a href="webp-to-jpg.html">WebP to JPG conversion</a> flattens the same image onto white.</p>
+      <p>Semi-transparent pixels matter here. A logo with a soft shadow is not a binary mask; it has thousands of partial alpha values. Both WebP and PNG can store those values, so a round trip through this tool keeps them. JPEG cannot, which is why a <a href="/webp-to-jpg">WebP to JPG conversion</a> flattens the same image onto white.</p>
 
       <h3>File size usually grows</h3>
-      <p>PNG compresses without discarding data, using prediction filters and DEFLATE. On flat graphics it can be efficient. On photographs it is not: a WebP photo that is a few hundred kilobytes may become a multi-megabyte PNG. The exact increase depends on image content, so this tool reports the measured result rather than promising a range. If size matters more than lossless storage, <a href="png-to-webp.html">PNG to WebP conversion</a> is the opposite trade.</p>
+      <p>PNG compresses without discarding data, using prediction filters and DEFLATE. On flat graphics it can be efficient. On photographs it is not: a WebP photo that is a few hundred kilobytes may become a multi-megabyte PNG. The exact increase depends on image content, so this tool reports the measured result rather than promising a range. If size matters more than lossless storage, <a href="/png-to-webp">PNG to WebP conversion</a> is the opposite trade.</p>
 
       <h2>When PNG is the right target</h2>
       <p>Choose PNG when a downstream tool or person needs the image exactly as decoded. Typical cases:</p>
@@ -144,7 +144,7 @@
       <p>PNG is also the safe choice when you are unsure. It is the most predictable output this tool can produce: no quality decision, no chroma subsampling, no block artifacts.</p>
 
       <h2>When PNG is the wrong target</h2>
-      <p>If the image is a photograph and the destination is a web page, PNG will cost bandwidth without a visible benefit. A JPG or a WebP will look the same at normal sizes and download faster. PNG is also a poor fit for very large images that only need a preview. In those cases, use the size control above to <a href="resize-webp.html">resize the WebP</a> before or during conversion, or keep the original WebP.</p>
+      <p>If the image is a photograph and the destination is a web page, PNG will cost bandwidth without a visible benefit. A JPG or a WebP will look the same at normal sizes and download faster. PNG is also a poor fit for very large images that only need a preview. In those cases, use the size control above to <a href="/resize-webp">resize the WebP</a> before or during conversion, or keep the original WebP.</p>
 
       <h2>How this conversion runs</h2>
       <p>The script reads the file with the File API, decodes it with <strong>createImageBitmap</strong> when available (falling back to an Image element), draws it onto a canvas, and calls <strong>canvas.toBlob</strong> with the PNG MIME type. Because PNG is lossless, the quality slider is disabled when PNG is selected. The resize field still applies: if you set a longest edge, the canvas is scaled first and the PNG stores the scaled pixels.</p>
@@ -164,9 +164,9 @@
       <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
-          <a href="png-to-webp.html"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
-          <a href="webp-to-jpg.html"><span class="r-label">Converter</span><span class="r-title">WebP to JPG</span></a>
-          <a href="resize-webp.html"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+          <a href="/png-to-webp"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
+          <a href="/webp-to-jpg"><span class="r-label">Converter</span><span class="r-title">WebP to JPG</span></a>
+          <a href="/resize-webp"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
         </div>
       </section>
 
@@ -181,9 +181,9 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <nav class="footer-nav" aria-label="Footer">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
     <p class="footer-meta">

@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PNG to WebP Converter - Keep Transparency</title>
 <meta name="description" content="Convert PNG to WebP in your browser. Alpha is preserved, quality is adjustable, and you see the real before and after file size. No uploads.">
-<link rel="canonical" href="https://webpkit.app/png-to-webp.html">
+<link rel="canonical" href="https://webpkit.app/png-to-webp">
 <meta name="theme-color" content="#0b0d10">
 <meta property="og:type" content="website">
 <meta property="og:title" content="PNG to WebP Converter - Keep Transparency">
 <meta property="og:description" content="Convert PNG to WebP locally. Transparency preserved, quality adjustable, measured output size.">
-<meta property="og:url" content="https://webpkit.app/png-to-webp.html">
+<meta property="og:url" content="https://webpkit.app/png-to-webp">
 <link rel="stylesheet" href="assets/site.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does PNG to WebP keep transparency?","acceptedAnswer":{"@type":"Answer","text":"Yes. The canvas keeps the alpha channel and the WebP encoder writes it, so transparent and semi-transparent pixels stay intact in the output."}},{"@type":"Question","name":"Is the WebP output lossless?","acceptedAnswer":{"@type":"Answer","text":"Only at quality 1.0 in browsers that map that value to lossless WebP, such as Chromium-based ones. Below 1.0 the output is lossy, and other browsers may treat 1.0 differently."}},{"@type":"Question","name":"How much smaller will the file be?","acceptedAnswer":{"@type":"Answer","text":"There is no fixed ratio. Flat graphics and screenshots often shrink a lot, while detailed PNGs may shrink modestly or even grow at high quality settings; the tool shows the measured result for your image."}},{"@type":"Question","name":"Will text stay sharp in WebP?","acceptedAnswer":{"@type":"Answer","text":"Only at a high quality setting, and even then it depends on the image. Lossy WebP can soften thin strokes, so keep PNG for UI assets where crisp text is critical."}}]}
@@ -21,15 +21,15 @@
 <div class="topline" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="logo" href="index.html" aria-label="WebPKit home">
+    <a class="logo" href="/" aria-label="WebPKit home">
       <span class="logo-mark" aria-hidden="true"></span>
       <span class="logo-text">WebP<span>Kit</span></span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Converter</a>
-      <a href="index.html#formats">Formats</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="about.html">About</a>
+      <a href="/" aria-current="page">Converter</a>
+      <a href="/#formats">Formats</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
     </nav>
   </div>
 </header>
@@ -38,7 +38,7 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li>Converters</li>
         <li aria-current="page">PNG to WebP</li>
       </ol>
@@ -127,7 +127,7 @@
       <p>A PNG is lossless and can carry an alpha channel. WebP can also be lossless and can also carry alpha, but those are encoder settings rather than automatic properties of the extension. The canvas API exposes a quality value: in Chromium browsers, values below 1.0 take the lossy WebP path and 1.0 takes the lossless path. At a quality below 1.0 the conversion keeps transparency and composition while discarding a small amount of detail.</p>
 
       <h3>Transparency and alpha</h3>
-      <p>If the PNG has transparent pixels, the canvas starts empty and the image is drawn over it. The WebP encoder writes the resulting alpha channel, so cut-out images stay cut out. Semi-transparent shadows survive as semi-transparent shadows. This is the main reason to choose WebP over JPG for interface graphics: <a href="jpg-to-webp.html">JPG to WebP</a> is a different conversation, but PNG sources keep their alpha here.</p>
+      <p>If the PNG has transparent pixels, the canvas starts empty and the image is drawn over it. The WebP encoder writes the resulting alpha channel, so cut-out images stay cut out. Semi-transparent shadows survive as semi-transparent shadows. This is the main reason to choose WebP over JPG for interface graphics: <a href="/jpg-to-webp">JPG to WebP</a> is a different conversation, but PNG sources keep their alpha here.</p>
       <p>One edge case: fully transparent regions in a lossy WebP are stored with limited precision. If you place the result on a very different background, faint halos can appear around soft edges. For strict compositing work, keep the PNG or use a lossless encoder outside the browser.</p>
 
       <h3>Lossy below 1.0, browser-dependent at 1.0</h3>
@@ -147,7 +147,7 @@
 
       <h2>Browser support for WebP</h2>
       <p>Modern browsers display WebP natively, including transparency, so a WebP served to a current browser renders like any other image. The remaining risk is not the browser but the rest of the pipeline: email clients, older design tools, some CMS upload filters, and print services may reject or mishandle WebP. Check the destination before you standardize on it.</p>
-      <p>If you need to move back to a universally accepted format, <a href="webp-to-png.html">convert WebP to PNG</a> for lossless output with alpha, or use JPG for opaque photos. The <a href="index.html">WebP converter home page</a> covers the format trade-offs in more depth.</p>
+      <p>If you need to move back to a universally accepted format, <a href="/webp-to-png">convert WebP to PNG</a> for lossless output with alpha, or use JPG for opaque photos. The <a href="/">WebP converter home page</a> covers the format trade-offs in more depth.</p>
 
       <h2>When PNG should stay PNG</h2>
       <p>Keep the PNG when the file is a master asset, when it will be edited repeatedly, when a lossless guarantee is part of the workflow, or when the image is small enough that the byte savings do not matter. Converting a 12 KB icon to a 10 KB WebP adds a compatibility question for almost no gain.</p>
@@ -168,9 +168,9 @@
       <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
-          <a href="webp-to-png.html"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
-          <a href="jpg-to-webp.html"><span class="r-label">Converter</span><span class="r-title">JPG to WebP</span></a>
-          <a href="resize-webp.html"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+          <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
+          <a href="/jpg-to-webp"><span class="r-label">Converter</span><span class="r-title">JPG to WebP</span></a>
+          <a href="/resize-webp"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
         </div>
       </section>
 
@@ -185,9 +185,9 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <nav class="footer-nav" aria-label="Footer">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
     <p class="footer-meta">

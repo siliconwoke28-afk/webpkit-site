@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WebP to JPG Converter - Local, White Background</title>
 <meta name="description" content="Convert WebP to JPG without uploading. Transparency is flattened onto white, quality is adjustable, and the output size is measured locally.">
-<link rel="canonical" href="https://webpkit.app/webp-to-jpg.html">
+<link rel="canonical" href="https://webpkit.app/webp-to-jpg">
 <meta name="theme-color" content="#0b0d10">
 <meta property="og:type" content="website">
 <meta property="og:title" content="WebP to JPG Converter - Local, White Background">
 <meta property="og:description" content="Convert WebP to JPG in your browser. Alpha becomes white, EXIF is dropped, nothing is uploaded.">
-<meta property="og:url" content="https://webpkit.app/webp-to-jpg.html">
+<meta property="og:url" content="https://webpkit.app/webp-to-jpg">
 <link rel="stylesheet" href="assets/site.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is WebP to JPG lossy?","acceptedAnswer":{"@type":"Answer","text":"Yes. JPG is a lossy format, so this conversion discards some detail on top of whatever the WebP already lost; the quality slider controls how much."}},{"@type":"Question","name":"What happens to transparent areas in the WebP?","acceptedAnswer":{"@type":"Answer","text":"They become white. JPG has no alpha channel, so the converter fills the canvas with white before drawing the image, and semi-transparent edges blend toward that white."}},{"@type":"Question","name":"Does the JPG keep EXIF data?","acceptedAnswer":{"@type":"Answer","text":"No. Canvas output contains pixels only, so EXIF, GPS coordinates, and capture time are dropped. Orientation is applied by the browser during decoding, so the image is not rotated incorrectly."}},{"@type":"Question","name":"Can I keep the file size down?","acceptedAnswer":{"@type":"Answer","text":"Yes, lower the quality slider and, if the image is larger than its display size, set a longest edge before converting. Both changes are applied before the JPEG encoder runs."}}]}
@@ -21,15 +21,15 @@
 <div class="topline" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="logo" href="index.html" aria-label="WebPKit home">
+    <a class="logo" href="/" aria-label="WebPKit home">
       <span class="logo-mark" aria-hidden="true"></span>
       <span class="logo-text">WebP<span>Kit</span></span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Converter</a>
-      <a href="index.html#formats">Formats</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="about.html">About</a>
+      <a href="/" aria-current="page">Converter</a>
+      <a href="/#formats">Formats</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
     </nav>
   </div>
 </header>
@@ -38,7 +38,7 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li>Converters</li>
         <li aria-current="page">WebP to JPG</li>
       </ol>
@@ -130,7 +130,7 @@
       <p>This tool fills the canvas with solid white before drawing the image. Any pixel that was fully transparent becomes white; any pixel that was partially transparent is blended with white according to its alpha value. The output JPG is fully opaque, which is what JPG consumers expect.</p>
 
       <h3>Soft edges and fringes</h3>
-      <p>A cut-out product photo on a transparent background is the worst case. Its anti-aliased edges carry a gradient of alpha values, and after flattening those values turn into a pale halo against the new background. On a white page the halo is usually invisible; on a dark page it is obvious. If the target background is not white, this conversion is not the right step - keep the WebP or <a href="webp-to-png.html">convert WebP to PNG</a> so the alpha survives and you can composite the image properly.</p>
+      <p>A cut-out product photo on a transparent background is the worst case. Its anti-aliased edges carry a gradient of alpha values, and after flattening those values turn into a pale halo against the new background. On a white page the halo is usually invisible; on a dark page it is obvious. If the target background is not white, this conversion is not the right step - keep the WebP or <a href="/webp-to-png">convert WebP to PNG</a> so the alpha survives and you can composite the image properly.</p>
 
       <h2>Quality: 0.8 is a reasonable start</h2>
       <p>The slider maps to the JPEG encoder's quality argument. At 0.8 you get a file that looks clean at normal viewing distance for most photographs while cutting a large share of the bytes. At 0.6 the image starts to soften; at 0.4 block artifacts appear in gradients, skies, and skin tones. Raise it to 0.9 or higher for detailed textures, small text, or images that will be cropped and zoomed after delivery.</p>
@@ -147,7 +147,7 @@
 
       <h2>When to convert, and when to keep the WebP</h2>
       <p>Convert when an upload form, email client, print service, or older application refuses WebP. JPG remains the most widely accepted photographic format. Keep the WebP when the image has transparency, when the destination is a modern browser, or when file size is the priority. A JPG of the same photo is often larger than the WebP it came from, so this is a compatibility move, not a size optimization.</p>
-      <p>If size is the goal, adjust the longest edge before converting. Reducing a 4000 px photo to 1600 px does more for the byte count than moving the quality slider, and it is easy to do with the size field above or on the dedicated <a href="resize-webp.html">resize WebP</a> page. To go the other direction later, use <a href="jpg-to-webp.html">JPG to WebP</a>.</p>
+      <p>If size is the goal, adjust the longest edge before converting. Reducing a 4000 px photo to 1600 px does more for the byte count than moving the quality slider, and it is easy to do with the size field above or on the dedicated <a href="/resize-webp">resize WebP</a> page. To go the other direction later, use <a href="/jpg-to-webp">JPG to WebP</a>.</p>
 
       <h2>How the local conversion works</h2>
       <p>The file is read with the File API, decoded by the browser, drawn to a canvas, and encoded with <strong>canvas.toBlob('image/jpeg', quality)</strong>. No network request is made, so the image never leaves the machine. The reported output size and percentage difference come from the actual JPEG blob, which is why they can differ from what a desktop editor produces with different encoder settings.</p>
@@ -165,9 +165,9 @@
       <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
-          <a href="webp-to-png.html"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
-          <a href="jpg-to-webp.html"><span class="r-label">Converter</span><span class="r-title">JPG to WebP</span></a>
-          <a href="resize-webp.html"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+          <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
+          <a href="/jpg-to-webp"><span class="r-label">Converter</span><span class="r-title">JPG to WebP</span></a>
+          <a href="/resize-webp"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
         </div>
       </section>
 
@@ -182,9 +182,9 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <nav class="footer-nav" aria-label="Footer">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
     <p class="footer-meta">

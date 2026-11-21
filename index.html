@@ -21,15 +21,15 @@
 <div class="topline" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="logo" href="index.html" aria-label="WebPKit home">
+    <a class="logo" href="/" aria-label="WebPKit home">
       <span class="logo-mark" aria-hidden="true"></span>
       <span class="logo-text">WebP<span>Kit</span></span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Converter</a>
-      <a href="index.html#formats">Formats</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="about.html">About</a>
+      <a href="/" aria-current="page">Converter</a>
+      <a href="/#formats">Formats</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
     </nav>
   </div>
 </header>
@@ -38,7 +38,7 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li>Converters</li>
         <li aria-current="page">WebP converter</li>
       </ol>
@@ -132,14 +132,14 @@
 
       <h3>WebP: smaller files, lossy by default</h3>
       <p>WebP is not a single codec setting. The format supports lossy compression, lossless compression, and an alpha channel, and encoders can combine those modes. This tool passes the quality value to the browser's encoder through <strong>canvas.toBlob</strong>. In Chromium-based browsers, values below 1.0 produce lossy WebP and 1.0 switches to lossless; other browsers may map the value differently. The measured output size makes that difference visible.</p>
-      <p>Lossy WebP is usually the right choice for photographs and large illustrations on the web. It tends to beat JPEG at comparable visual quality and it keeps transparency when the source has it. If your source is a PNG and you want a smaller file, start with <a href="png-to-webp.html">PNG to WebP conversion</a> and check the preview for banding in flat areas.</p>
+      <p>Lossy WebP is usually the right choice for photographs and large illustrations on the web. It tends to beat JPEG at comparable visual quality and it keeps transparency when the source has it. If your source is a PNG and you want a smaller file, start with <a href="/png-to-webp">PNG to WebP conversion</a> and check the preview for banding in flat areas.</p>
 
       <h3>PNG: lossless pixels and clean transparency</h3>
-      <p>PNG stores every pixel exactly and supports full alpha. That makes it the safe target for screenshots, UI assets, line art, logos, and images that will be edited again. The cost is size: a photographic PNG can be several times larger than the WebP it came from. When you need a lossless copy of what the browser decoded, <a href="webp-to-png.html">convert WebP to PNG</a>.</p>
+      <p>PNG stores every pixel exactly and supports full alpha. That makes it the safe target for screenshots, UI assets, line art, logos, and images that will be edited again. The cost is size: a photographic PNG can be several times larger than the WebP it came from. When you need a lossless copy of what the browser decoded, <a href="/webp-to-png">convert WebP to PNG</a>.</p>
       <p>PNG output here is produced by the browser's PNG encoder and is lossless relative to the decoded source. It cannot restore detail that a lossy WebP already discarded.</p>
 
       <h3>JPG: universal, photographic, no alpha</h3>
-      <p>JPEG is the format every photo pipeline accepts. It does not support transparency, so this tool composites transparent pixels onto white before encoding. Choose JPG when a destination rejects WebP and the image is a photograph. For screenshots and text, JPEG's block artifacts are visible; PNG is the better target. If your source is a WebP with alpha, read <a href="webp-to-jpg.html">WebP to JPG</a> before you convert, because the background change is permanent in the output.</p>
+      <p>JPEG is the format every photo pipeline accepts. It does not support transparency, so this tool composites transparent pixels onto white before encoding. Choose JPG when a destination rejects WebP and the image is a photograph. For screenshots and text, JPEG's block artifacts are visible; PNG is the better target. If your source is a WebP with alpha, read <a href="/webp-to-jpg">WebP to JPG</a> before you convert, because the background change is permanent in the output.</p>
 
       <h2>How quality 0.8 behaves in practice</h2>
       <p>The slider runs from 0.4 to 1.0 and applies only to WebP and JPG. 0.8 is a common default because it removes a large share of the bytes while leaving artifacts hard to see at normal viewing sizes. At 0.4 you will see ringing around edges and smearing in flat areas; that can be acceptable for thumbnails and unacceptable for product shots. In Chromium browsers, sliding WebP to 1.0 changes the encoder to lossless, so the file can jump in size at the top of the range.</p>
@@ -151,7 +151,7 @@
 
       <h2>Why the file never leaves your device</h2>
       <p>The page has no upload endpoint and the script makes no network requests. Images are read with the File API, decoded with <strong>createImageBitmap</strong> or an Image element, and encoded with <strong>canvas.toBlob</strong>. You can verify this yourself by opening the network panel in your browser's developer tools while converting: no request carries your image. Once the page is loaded, conversion works offline.</p>
-      <p>That property is the main reason this tool exists. Uploading a client's screenshot to an unknown server just to change its format is a needless disclosure. Local processing removes the question entirely. The <a href="privacy.html">privacy policy</a> describes the same boundary in more detail.</p>
+      <p>That property is the main reason this tool exists. Uploading a client's screenshot to an unknown server just to change its format is a needless disclosure. Local processing removes the question entirely. The <a href="/privacy">privacy policy</a> describes the same boundary in more detail.</p>
 
       <h2>Frequently asked questions</h2>
       <h3>Does converting to WebP reduce quality?</h3>
@@ -166,9 +166,9 @@
       <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
-          <a href="webp-to-png.html"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
-          <a href="png-to-webp.html"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
-          <a href="resize-webp.html"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+          <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
+          <a href="/png-to-webp"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
+          <a href="/resize-webp"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
         </div>
       </section>
 
@@ -183,9 +183,9 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <nav class="footer-nav" aria-label="Footer">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
     <p class="footer-meta">

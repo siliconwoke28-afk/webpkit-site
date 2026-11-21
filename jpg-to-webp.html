@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JPG to WebP Converter - Re-encode Photos Locally</title>
 <meta name="description" content="Convert JPG to WebP on your device. One decode, one encode, adjustable quality, and EXIF stripped. No server, no upload, no batch.">
-<link rel="canonical" href="https://webpkit.app/jpg-to-webp.html">
+<link rel="canonical" href="https://webpkit.app/jpg-to-webp">
 <meta name="theme-color" content="#0b0d10">
 <meta property="og:type" content="website">
 <meta property="og:title" content="JPG to WebP Converter - Re-encode Photos Locally">
 <meta property="og:description" content="Convert JPG photos to WebP in the browser. Adjustable quality, measured size, nothing uploaded.">
-<meta property="og:url" content="https://webpkit.app/jpg-to-webp.html">
+<meta property="og:url" content="https://webpkit.app/jpg-to-webp">
 <link rel="stylesheet" href="assets/site.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does JPG to WebP lose quality?","acceptedAnswer":{"@type":"Answer","text":"Yes at quality values below 1.0. The JPG is already lossy, and the conversion adds a second lossy encode. At 1.0 Chromium browsers use lossless WebP, but the source detail is still gone."}},{"@type":"Question","name":"Will the WebP be smaller than the JPG?","acceptedAnswer":{"@type":"Answer","text":"Often, but not always. It depends on the image and the quality setting, so the tool reports the measured size instead of promising a percentage."}},{"@type":"Question","name":"Does the conversion keep EXIF or GPS data?","acceptedAnswer":{"@type":"Answer","text":"No. Canvas output has no EXIF block, so camera details, GPS coordinates, and capture time are removed; the image orientation has already been applied during decoding."}},{"@type":"Question","name":"Can I convert a JPG with a CMYK color profile?","acceptedAnswer":{"@type":"Answer","text":"It depends on the browser's decoder. Browsers generally draw into an sRGB canvas, so non-sRGB profiles are converted or may not display as expected; check the preview before using the output."}}]}
@@ -21,15 +21,15 @@
 <div class="topline" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="logo" href="index.html" aria-label="WebPKit home">
+    <a class="logo" href="/" aria-label="WebPKit home">
       <span class="logo-mark" aria-hidden="true"></span>
       <span class="logo-text">WebP<span>Kit</span></span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Converter</a>
-      <a href="index.html#formats">Formats</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="about.html">About</a>
+      <a href="/" aria-current="page">Converter</a>
+      <a href="/#formats">Formats</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
     </nav>
   </div>
 </header>
@@ -38,7 +38,7 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li>Converters</li>
         <li aria-current="page">JPG to WebP</li>
       </ol>
@@ -147,10 +147,10 @@
 
       <h2>When the JPG should stay a JPG</h2>
       <p>Keep the JPEG if the destination does not accept WebP, if the image must open in older desktop software, or if the file is already small enough that conversion adds risk without meaningful savings. Tiny images are a bad trade: a 40 KB JPEG might become a 36 KB WebP, which is not worth a compatibility question.</p>
-      <p>Also keep the JPEG when you need EXIF for legal or archival reasons. This tool strips it by design. If you later need the opposite direction, <a href="webp-to-jpg.html">WebP to JPG</a> is available, and for images with transparency the right path is <a href="png-to-webp.html">PNG to WebP</a> rather than a JPEG round trip.</p>
+      <p>Also keep the JPEG when you need EXIF for legal or archival reasons. This tool strips it by design. If you later need the opposite direction, <a href="/webp-to-jpg">WebP to JPG</a> is available, and for images with transparency the right path is <a href="/png-to-webp">PNG to WebP</a> rather than a JPEG round trip.</p>
 
       <h2>How the local conversion works</h2>
-      <p>The file is read with the File API, decoded by the browser, drawn to a canvas at the requested size, and encoded with <strong>canvas.toBlob('image/webp', quality)</strong>. Setting a longest edge is applied before encoding, so it reduces both dimensions and bytes in one pass. Nothing is uploaded; the <a href="privacy.html">privacy policy</a> documents that boundary, and you can confirm it in your browser's network panel.</p>
+      <p>The file is read with the File API, decoded by the browser, drawn to a canvas at the requested size, and encoded with <strong>canvas.toBlob('image/webp', quality)</strong>. Setting a longest edge is applied before encoding, so it reduces both dimensions and bytes in one pass. Nothing is uploaded; the <a href="/privacy">privacy policy</a> documents that boundary, and you can confirm it in your browser's network panel.</p>
 
       <h2>Frequently asked questions</h2>
       <h3>Does JPG to WebP lose quality?</h3>
@@ -165,9 +165,9 @@
       <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
-          <a href="webp-to-jpg.html"><span class="r-label">Converter</span><span class="r-title">WebP to JPG</span></a>
-          <a href="png-to-webp.html"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
-          <a href="resize-webp.html"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+          <a href="/webp-to-jpg"><span class="r-label">Converter</span><span class="r-title">WebP to JPG</span></a>
+          <a href="/png-to-webp"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
+          <a href="/resize-webp"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
         </div>
       </section>
 
@@ -182,9 +182,9 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <nav class="footer-nav" aria-label="Footer">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
     <p class="footer-meta">
