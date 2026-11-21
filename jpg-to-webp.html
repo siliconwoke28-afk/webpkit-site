@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JPG to WebP Converter - Re-encode Photos Locally</title>
+<meta name="description" content="Convert JPG to WebP on your device. One decode, one encode, adjustable quality, and EXIF stripped. No server, no upload, no batch.">
+<link rel="canonical" href="https://webpkit.app/jpg-to-webp.html">
+<meta name="theme-color" content="#0b0d10">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JPG to WebP Converter - Re-encode Photos Locally">
+<meta property="og:description" content="Convert JPG photos to WebP in the browser. Adjustable quality, measured size, nothing uploaded.">
+<meta property="og:url" content="https://webpkit.app/jpg-to-webp.html">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does JPG to WebP lose quality?","acceptedAnswer":{"@type":"Answer","text":"Yes at quality values below 1.0. The JPG is already lossy, and the conversion adds a second lossy encode. At 1.0 Chromium browsers use lossless WebP, but the source detail is still gone."}},{"@type":"Question","name":"Will the WebP be smaller than the JPG?","acceptedAnswer":{"@type":"Answer","text":"Often, but not always. It depends on the image and the quality setting, so the tool reports the measured size instead of promising a percentage."}},{"@type":"Question","name":"Does the conversion keep EXIF or GPS data?","acceptedAnswer":{"@type":"Answer","text":"No. Canvas output has no EXIF block, so camera details, GPS coordinates, and capture time are removed; the image orientation has already been applied during decoding."}},{"@type":"Question","name":"Can I convert a JPG with a CMYK color profile?","acceptedAnswer":{"@type":"Answer","text":"It depends on the browser's decoder. Browsers generally draw into an sRGB canvas, so non-sRGB profiles are converted or may not display as expected; check the preview before using the output."}}]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topline" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="index.html" aria-label="WebPKit home">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="logo-text">WebP<span>Kit</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Converter</a>
+      <a href="index.html#formats">Formats</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li>Converters</li>
+        <li aria-current="page">JPG to WebP</li>
+      </ol>
+    </nav>
+
+    <section class="hero">
+      <h1>JPG to WebP converter for photographs</h1>
+      <p class="page-meta"><span>Updated 2026-11-17</span><span>By WebPKit</span><span>6 min read</span></p>
+      <p class="lede">This page re-encodes a JPEG photo as WebP in your browser. Done once at a sensible quality it usually produces a smaller file with comparable detail; done repeatedly it stacks compression artifacts. The JPEG you start with is already lossy, so there is no lossless path from it, only a careful single pass.</p>
+    </section>
+
+    <section class="workbench" aria-label="JPG to WebP converter">
+      <div class="grid" id="converter" data-output="webp">
+        <div class="col-8">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="label">01 / Input</span>
+              <span class="label">One image · max 25 MB</span>
+            </div>
+            <input class="sr-only" type="file" id="file" accept="image/*" tabindex="-1">
+            <label class="dropzone" id="dropzone" for="file" tabindex="0" role="button" aria-describedby="drop-help">
+              <span class="drop-icon" aria-hidden="true">+</span>
+              <span class="drop-title">Drop a JPG here</span>
+              <span class="drop-sub">or click to browse - other formats are accepted too</span>
+              <span class="drop-note" id="drop-help">Processed on this device. Never uploaded.</span>
+            </label>
+            <dl class="filemeta" id="filemeta" hidden>
+              <div><dt>Source</dt><dd id="meta-format">Not loaded</dd></div>
+              <div><dt>Dimensions</dt><dd id="meta-dims">Not loaded</dd></div>
+              <div><dt>File size</dt><dd id="meta-size">Not loaded</dd></div>
+            </dl>
+            <p class="status" id="status" role="status" aria-live="polite">No image loaded.</p>
+            <noscript><p class="status is-error">This converter needs JavaScript. The rest of the page still works without it.</p></noscript>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="label">02 / Output</span>
+              <span class="label">WebP</span>
+            </div>
+            <fieldset class="field">
+              <legend class="label">Format</legend>
+              <div class="seg">
+                <input type="radio" id="fmt-webp" name="format" value="webp" checked>
+                <label for="fmt-webp">WebP</label>
+                <input type="radio" id="fmt-png" name="format" value="png">
+                <label for="fmt-png">PNG</label>
+                <input type="radio" id="fmt-jpg" name="format" value="jpg">
+                <label for="fmt-jpg">JPG</label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <div class="field-row">
+                <label class="label" for="quality">Quality</label>
+                <output class="output-val" id="quality-out" for="quality">0.80</output>
+              </div>
+              <input type="range" id="quality" min="0.4" max="1" step="0.05" value="0.8">
+              <p class="hint" id="quality-hint">Lossy encoding. 0.80 is a common starting point.</p>
+            </div>
+            <div class="field">
+              <label class="label" for="maxedge">Longest edge (px)</label>
+              <input type="number" id="maxedge" min="16" max="12000" step="1" inputmode="numeric" placeholder="No resize">
+              <p class="hint">Leave empty to keep the original dimensions.</p>
+            </div>
+            <button class="btn" id="convert" type="button" disabled>Convert image</button>
+            <div class="result" id="result" hidden>
+              <div class="result-preview"><img id="preview" alt="Preview of the converted WebP"></div>
+              <dl class="stats">
+                <div><dt>Output</dt><dd id="out-format">Not loaded</dd></div>
+                <div><dt>Dimensions</dt><dd id="out-dims">Not loaded</dd></div>
+                <div><dt>Size</dt><dd id="out-size">Not loaded</dd></div>
+                <div><dt>vs original</dt><dd id="out-delta">Not loaded</dd></div>
+              </dl>
+              <a class="btn btn-download" id="download" download>Download WebP</a>
+            </div>
+            <p class="status" id="result-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+      <p class="tool-note">One image per run. Batch conversion is not supported. Nothing is uploaded.</p>
+    </section>
+
+    <article class="article">
+      <h2>One decode, one encode</h2>
+      <p>The browser decodes the JPEG to raw pixels, draws them onto a canvas, and encodes that canvas as WebP. There is no server round trip and no intermediate file. Below quality 1.0, the one encode is the only new loss the tool adds; at 1.0 Chromium browsers switch the WebP encoder to lossless, though the JPEG source is already lossy.</p>
+
+      <h3>Generation loss</h3>
+      <p>Every lossy encode removes information permanently. A JPEG that has already been saved a few times carries artifacts, and re-encoding it as WebP does not clean them up - it preserves them and adds its own. If you have the original raw or TIFF, encode WebP from that instead. If the JPEG is all you have, do one careful conversion and keep the JPEG as the archive copy.</p>
+
+      <h3>Why repeated format swaps are a bad idea</h3>
+      <p>JPG to WebP to JPG to WebP is not a neutral round trip. Each step changes the image slightly, and the errors accumulate in flat areas and along edges. Pick a delivery format once, keep the best source, and regenerate from it when requirements change.</p>
+
+      <h2>Quality for photographs</h2>
+      <p>Photos have smooth gradients, fine texture, and often skin tones. WebP handles these better than JPEG at the same nominal quality, but the slider is still a real trade. Start at 0.8, inspect the preview, and raise the value if you see smearing in sky gradients or on faces.</p>
+
+      <h3>0.80 versus 0.85</h3>
+      <p>The difference between 0.80 and 0.85 is often a modest size increase for a visible improvement on detailed images. Use 0.85 for portfolio work and images that will be displayed large; 0.80 is fine for blog images and thumbnails. Below 0.7, texture turns plastic and foliage turns mushy.</p>
+
+      <h3>When quality 1.0 makes sense</h3>
+      <p>In Chromium browsers, 1.0 switches WebP to lossless. Use it when you want to stop adding loss and can accept a much larger file; the output will match the decoded JPEG exactly, but it cannot recover detail the JPEG discarded. Other browsers may keep the encoder lossy at 1.0, so check the measured size rather than assuming a mode.</p>
+
+      <h2>EXIF, GPS and orientation</h2>
+      <p>The canvas output has no EXIF block. Camera model, lens, exposure settings, capture time, and GPS coordinates are dropped. For photos shared publicly, that is a privacy benefit: a phone photo can otherwise reveal a home address. For professional archives, it means this tool is not a metadata-preserving converter.</p>
+      <p>Orientation works because browsers apply the source's EXIF orientation while decoding. A portrait photo taken with the phone sideways still comes out upright in the WebP, even though the orientation tag is gone. Color profiles are less predictable: most browsers draw into an sRGB canvas, so a wide-gamut or CMYK JPEG is converted to sRGB, and unusual profiles may not render as expected. Check the preview before publishing.</p>
+
+      <h2>When the JPG should stay a JPG</h2>
+      <p>Keep the JPEG if the destination does not accept WebP, if the image must open in older desktop software, or if the file is already small enough that conversion adds risk without meaningful savings. Tiny images are a bad trade: a 40 KB JPEG might become a 36 KB WebP, which is not worth a compatibility question.</p>
+      <p>Also keep the JPEG when you need EXIF for legal or archival reasons. This tool strips it by design. If you later need the opposite direction, <a href="webp-to-jpg.html">WebP to JPG</a> is available, and for images with transparency the right path is <a href="png-to-webp.html">PNG to WebP</a> rather than a JPEG round trip.</p>
+
+      <h2>How the local conversion works</h2>
+      <p>The file is read with the File API, decoded by the browser, drawn to a canvas at the requested size, and encoded with <strong>canvas.toBlob('image/webp', quality)</strong>. Setting a longest edge is applied before encoding, so it reduces both dimensions and bytes in one pass. Nothing is uploaded; the <a href="privacy.html">privacy policy</a> documents that boundary, and you can confirm it in your browser's network panel.</p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>Does JPG to WebP lose quality?</h3>
+      <p>Yes at quality values below 1.0. The JPG is already lossy, and the conversion adds a second lossy encode. At 1.0 Chromium browsers use lossless WebP, but the source detail is still gone.</p>
+      <h3>Will the WebP be smaller than the JPG?</h3>
+      <p>Often, but not always. It depends on the image and the quality setting, so the tool reports the measured size instead of promising a percentage.</p>
+      <h3>Does the conversion keep EXIF or GPS data?</h3>
+      <p>No. Canvas output has no EXIF block, so camera details, GPS coordinates, and capture time are removed; the image orientation has already been applied during decoding.</p>
+      <h3>Can I convert a JPG with a CMYK color profile?</h3>
+      <p>It depends on the browser's decoder. Browsers generally draw into an sRGB canvas, so non-sRGB profiles are converted or may not display as expected; check the preview before using the output.</p>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">Related converters</h2>
+        <div class="related-grid">
+          <a href="webp-to-jpg.html"><span class="r-label">Converter</span><span class="r-title">WebP to JPG</span></a>
+          <a href="png-to-webp.html"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
+          <a href="resize-webp.html"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+        </div>
+      </section>
+
+      <section class="bottom" aria-labelledby="bottom-title">
+        <h2 id="bottom-title">Bottom line</h2>
+        <p>JPG to WebP is a single extra encode, so make it count: use a high quality value, resize when the display size is smaller than the source, and convert from the best copy you have. The result is usually smaller, but verify it against your own image rather than assuming.</p>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+      <a href="sitemap.xml">Sitemap</a>
+    </nav>
+    <p class="footer-meta">
+      <strong>Files never leave your device.</strong>
+      <span class="footer-line">© 2026 WebPKit. Converted locally in your browser.</span>
+    </p>
+  </div>
+</footer>
+<script src="assets/app.js" defer></script>
+</body>
+</html>
