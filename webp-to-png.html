@@ -11,20 +11,19 @@
 <meta property="og:title" content="WebP to PNG Converter - Lossless Output, No Upload">
 <meta property="og:description" content="Convert WebP to PNG locally. Alpha preserved, no upload, measured output size.">
 <meta property="og:url" content="https://webpkit.app/webp-to-png">
-<link rel="stylesheet" href="assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://webpkit.app/#organization","name":"WebPKit","url":"https://webpkit.app/","logo":{"@type":"ImageObject","url":"https://webpkit.app/assets/og.png","width":1200,"height":630},"email":"wk@webpkit.app","sameAs":["https://github.com/siliconwoke28-afk/webpkit-site"]},{"@type":"WebSite","@id":"https://webpkit.app/#website","url":"https://webpkit.app/","name":"WebPKit","publisher":{"@id":"https://webpkit.app/#organization"}},{"@type":"WebPage","@id":"https://webpkit.app/webp-to-png#webpage","url":"https://webpkit.app/webp-to-png","name":"WebP to PNG Converter - Lossless Output, No Upload","description":"Convert WebP to PNG in your browser. Transparent pixels are preserved, the PNG step is lossless, and the file stays on your device.","isPartOf":{"@id":"https://webpkit.app/#website"},"about":{"@id":"https://webpkit.app/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://webpkit.app/"},{"@type":"ListItem","position":2,"name":"WebP to PNG Converter - Lossless Output, No Upload","item":"https://webpkit.app/webp-to-png"}]}]}</script>
+<link rel="stylesheet" href="assets/site.css?v=2">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is WebP to PNG lossless?","acceptedAnswer":{"@type":"Answer","text":"The PNG step is lossless, but it cannot recover detail that a lossy WebP already discarded. You get an exact copy of the decoded pixels, not of the pre-WebP original."}},{"@type":"Question","name":"Does transparency survive WebP to PNG conversion?","acceptedAnswer":{"@type":"Answer","text":"Yes. PNG and WebP both support an alpha channel, so transparent pixels remain transparent and the PNG keeps a real alpha channel rather than a white background."}},{"@type":"Question","name":"Why is the PNG larger than the WebP?","acceptedAnswer":{"@type":"Answer","text":"PNG stores pixels without lossy compression, so photographic images often expand several times over. The exact ratio depends on the image, not on a fixed rule."}},{"@type":"Question","name":"Does WebPKit upload my WebP file?","acceptedAnswer":{"@type":"Answer","text":"No. The file is read locally with the File API and re-encoded by your browser; the script makes no network requests."}}]}
 </script>
-  <meta property="og:site_name" content="WebPKit">
-  <meta property="og:image" content="https://webpkit.app/assets/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="WebPKit browser-based WebP, PNG and JPG converter">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="WebP to PNG Converter - Lossless Output, No Upload">
-  <meta name="twitter:description" content="Convert WebP to PNG in your browser. Transparent pixels are preserved, the PNG step is lossless, and the file stays on your device.">
-  <meta name="twitter:image" content="https://webpkit.app/assets/og.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1QJ4BB7VF"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z1QJ4BB7VF', { anonymize_ip: true });
+window.track = function (name, params) { try { gtag('event', name, params || {}); } catch (e) {} };
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -161,15 +160,17 @@
       <p>Metadata does not survive. EXIF fields, XMP packets, and textual chunks are not copied by canvas; the output contains pixels and alpha only. Most browsers also draw into an sRGB canvas, so wide-gamut profiles are not preserved as tags. If you need the original metadata, keep the source file.</p>
       <p>Nothing is uploaded at any point. The encoder runs in the same tab that displays this page, and you can confirm the absence of network activity in your browser's developer tools.</p>
 
-      <section class="seo-faq" aria-labelledby="faq-title">
-<h2 id="faq-title">Frequently asked questions</h2>
-      <details><summary><h3>Is WebP to PNG lossless?</h3></summary><p>The PNG step is lossless, but it cannot recover detail that a lossy WebP already discarded. You get an exact copy of the decoded pixels, not of the pre-WebP original.</p></details>
-      <details><summary><h3>Does transparency survive WebP to PNG conversion?</h3></summary><p>Yes. PNG and WebP both support an alpha channel, so transparent pixels remain transparent and the PNG keeps a real alpha channel rather than a white background.</p></details>
-      <details><summary><h3>Why is the PNG larger than the WebP?</h3></summary><p>PNG stores pixels without lossy compression, so photographic images often expand several times over. The exact ratio depends on the image, not on a fixed rule.</p></details>
-      <details><summary><h3>Does WebPKit upload my WebP file?</h3></summary><p>No. The file is read locally with the File API and re-encoded by your browser; the script makes no network requests.</p></details>
+      <h2>Frequently asked questions</h2>
+      <h3>Is WebP to PNG lossless?</h3>
+      <p>The PNG step is lossless, but it cannot recover detail that a lossy WebP already discarded. You get an exact copy of the decoded pixels, not of the pre-WebP original.</p>
+      <h3>Does transparency survive WebP to PNG conversion?</h3>
+      <p>Yes. PNG and WebP both support an alpha channel, so transparent pixels remain transparent and the PNG keeps a real alpha channel rather than a white background.</p>
+      <h3>Why is the PNG larger than the WebP?</h3>
+      <p>PNG stores pixels without lossy compression, so photographic images often expand several times over. The exact ratio depends on the image, not on a fixed rule.</p>
+      <h3>Does WebPKit upload my WebP file?</h3>
+      <p>No. The file is read locally with the File API and re-encoded by your browser; the script makes no network requests.</p>
 
-      </section>
-<section class="related" aria-labelledby="related-title">
+      <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
           <a href="/png-to-webp"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
@@ -178,7 +179,7 @@
         </div>
       </section>
 
-      <section class="bottom seo-summary" aria-labelledby="bottom-title">
+      <section class="bottom" aria-labelledby="bottom-title">
         <h2 id="bottom-title">Bottom line</h2>
         <p>WebP to PNG is the right move when you need lossless pixels or guaranteed transparency and can afford a larger file. The conversion preserves alpha and adds no new compression loss, but it cannot undo loss from the original WebP. Keep the file local, check the measured size, and convert only once.</p>
       </section>
@@ -200,6 +201,6 @@
     </p>
   </div>
 </footer>
-<script src="assets/app.js" defer></script>
+<script src="assets/app.js?v=2" defer></script>
 </body>
 </html>

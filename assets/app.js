@@ -45,6 +45,7 @@
 
   var webpSupport = null;
   var convertTimer = 0;
+  var lastTrack = 0;
 
   function currentFormat() {
     for (var i = 0; i < formatInputs.length; i++) {
@@ -217,6 +218,7 @@
         return;
       }
       if (!blob) {
+        if (window.track) window.track('webp_error', { reason: 'encode' });
         setStatus('This browser could not encode ' + LABEL[fmt] + '. Try PNG or JPG instead.', true);
         return;
       }
@@ -246,7 +248,13 @@
     var base = state.file.name.replace(/\.[^.]+$/, '') || 'image';
     download.href = state.outUrl;
     download.download = base + '-webpkit.' + EXT[fmt];
+    state.outFmt = fmt;
     result.hidden = false;
+    var now = Date.now();
+    if (window.track && now - lastTrack > 1500) {
+      lastTrack = now;
+      window.track('webp_convert', { to: fmt, w: outW, h: outH, kb: Math.round(blob.size / 1024) });
+    }
 
     var direction = pct < 0 ? 'smaller than the original' : (pct > 0 ? 'larger than the original' : 'the same size as the original');
     resultStatus.textContent = 'Converted to ' + LABEL[fmt] + ' at ' + outW + ' × ' + outH + '. '
@@ -260,11 +268,13 @@
     }
 
     if (!file.type || file.type.indexOf('image/') !== 0) {
+      if (window.track) window.track('webp_error', { reason: 'type' });
       setStatus('That file is not an image. Use a WebP, PNG, JPG, GIF, or AVIF file.', true);
       return Promise.resolve();
     }
 
     if (file.size > MAX_BYTES) {
+      if (window.track) window.track('webp_error', { reason: 'size' });
       setStatus('That image is ' + formatBytes(file.size) + '. The limit is 25 MB per file.', true);
       return Promise.resolve();
     }
@@ -279,6 +289,7 @@
       state.bitmap = bitmap;
       state.file = file;
       showMeta(file);
+      if (window.track) window.track('webp_upload', { type: file.type, kb: Math.round(file.size / 1024), w: bitmap.width, h: bitmap.height });
       convertBtn.disabled = false;
       setStatus('Loaded ' + file.name + '. Adjust the output and it converts automatically.');
       convert();
@@ -361,6 +372,10 @@
     if (state.bitmap) {
       scheduleConvert(420);
     }
+  });
+
+  download.addEventListener('click', function () {
+    if (window.track) window.track('webp_download', { to: state.outFmt || 'unknown' });
   });
 
   convertBtn.addEventListener('click', convert);

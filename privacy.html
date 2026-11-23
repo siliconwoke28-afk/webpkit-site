@@ -11,20 +11,19 @@
 <meta property="og:title" content="Privacy Policy - WebPKit">
 <meta property="og:description" content="How WebPKit handles images and data: local processing, no uploads, no analytics at launch.">
 <meta property="og:url" content="https://webpkit.app/privacy">
-<link rel="stylesheet" href="assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://webpkit.app/#organization","name":"WebPKit","url":"https://webpkit.app/","logo":{"@type":"ImageObject","url":"https://webpkit.app/assets/og.png","width":1200,"height":630},"email":"wk@webpkit.app","sameAs":["https://github.com/siliconwoke28-afk/webpkit-site"]},{"@type":"WebSite","@id":"https://webpkit.app/#website","url":"https://webpkit.app/","name":"WebPKit","publisher":{"@id":"https://webpkit.app/#organization"}},{"@type":"WebPage","@id":"https://webpkit.app/privacy#webpage","url":"https://webpkit.app/privacy","name":"Privacy Policy - WebPKit","description":"WebPKit processes images on your device. This policy explains what the site does not collect, what hosting logs may exist, and how to ask questions.","isPartOf":{"@id":"https://webpkit.app/#website"},"about":{"@id":"https://webpkit.app/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://webpkit.app/"},{"@type":"ListItem","position":2,"name":"Privacy Policy","item":"https://webpkit.app/privacy"}]}]}</script>
+<link rel="stylesheet" href="assets/site.css?v=2">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Conversion happens in your browser with the File API and canvas, and the site has no upload endpoint for images."}},{"@type":"Question","name":"Does WebPKit use cookies or analytics?","acceptedAnswer":{"@type":"Answer","text":"The site currently sets no cookies, loads no analytics, and includes no advertising scripts; the pages are static HTML, CSS, and JavaScript."}},{"@type":"Question","name":"What does the hosting provider log?","acceptedAnswer":{"@type":"Answer","text":"Like most web hosts, the provider may keep standard access logs such as IP address, request path, and user agent for security and operations. WebPKit does not use those logs to identify visitors or build profiles."}},{"@type":"Question","name":"What happens if ads are added later?","acceptedAnswer":{"@type":"Answer","text":"This policy will be updated before any advertising or analytics script is added, and the change will be described here rather than buried in a separate notice."}}]}
 </script>
-  <meta property="og:site_name" content="WebPKit">
-  <meta property="og:image" content="https://webpkit.app/assets/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="WebPKit browser-based WebP, PNG and JPG converter">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Privacy Policy - WebPKit">
-  <meta name="twitter:description" content="WebPKit processes images on your device. This policy explains what the site does not collect, what hosting logs may exist, and how to ask questions.">
-  <meta name="twitter:image" content="https://webpkit.app/assets/og.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1QJ4BB7VF"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z1QJ4BB7VF', { anonymize_ip: true });
+window.track = function (name, params) { try { gtag('event', name, params || {}); } catch (e) {} };
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -85,15 +84,17 @@
       <h2>Changes to this policy</h2>
       <p>When the site changes in a way that affects data handling, the "Updated" date at the top of this page will change and the relevant section will be revised. Material changes, such as adding advertising or analytics, will be described in plain language rather than hidden in a legal appendix. Continuing to use the site after an update means you accept the revised policy.</p>
 
-      <section class="seo-faq" aria-labelledby="faq-title">
-<h2 id="faq-title">Frequently asked questions</h2>
-      <details><summary><h3>Are my images uploaded to a server?</h3></summary><p>No. Conversion happens in your browser with the File API and canvas, and the site has no upload endpoint for images.</p></details>
-      <details><summary><h3>Does WebPKit use cookies or analytics?</h3></summary><p>The site currently sets no cookies, loads no analytics, and includes no advertising scripts; the pages are static HTML, CSS, and JavaScript.</p></details>
-      <details><summary><h3>What does the hosting provider log?</h3></summary><p>Like most web hosts, the provider may keep standard access logs such as IP address, request path, and user agent for security and operations. WebPKit does not use those logs to identify visitors or build profiles.</p></details>
-      <details><summary><h3>What happens if ads are added later?</h3></summary><p>This policy will be updated before any advertising or analytics script is added, and the change will be described here rather than buried in a separate notice.</p></details>
+      <h2>Frequently asked questions</h2>
+      <h3>Are my images uploaded to a server?</h3>
+      <p>No. Conversion happens in your browser with the File API and canvas, and the site has no upload endpoint for images.</p>
+      <h3>Does WebPKit use cookies or analytics?</h3>
+      <p>The site currently sets no cookies, loads no analytics, and includes no advertising scripts; the pages are static HTML, CSS, and JavaScript.</p>
+      <h3>What does the hosting provider log?</h3>
+      <p>Like most web hosts, the provider may keep standard access logs such as IP address, request path, and user agent for security and operations. WebPKit does not use those logs to identify visitors or build profiles.</p>
+      <h3>What happens if ads are added later?</h3>
+      <p>This policy will be updated before any advertising or analytics script is added, and the change will be described here rather than buried in a separate notice.</p>
 
-      </section>
-<section class="related" aria-labelledby="related-title">
+      <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
           <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
@@ -102,7 +103,7 @@
         </div>
       </section>
 
-      <section class="bottom seo-summary" aria-labelledby="bottom-title">
+      <section class="bottom" aria-labelledby="bottom-title">
         <h2 id="bottom-title">Bottom line</h2>
         <p>WebPKit is built so that the sensitive part - your image - never leaves your device. The site collects no accounts, no image data, and no analytics at launch. Hosting logs may exist at the network edge, and any future advertising would be disclosed here before it appears.</p>
       </section>
@@ -124,6 +125,6 @@
     </p>
   </div>
 </footer>
-<script src="assets/app.js" defer></script>
+<script src="assets/app.js?v=2" defer></script>
 </body>
 </html>

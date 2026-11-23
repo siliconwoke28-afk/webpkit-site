@@ -11,20 +11,19 @@
 <meta property="og:title" content="WebP to JPG Converter - Local, White Background">
 <meta property="og:description" content="Convert WebP to JPG in your browser. Alpha becomes white, EXIF is dropped, nothing is uploaded.">
 <meta property="og:url" content="https://webpkit.app/webp-to-jpg">
-<link rel="stylesheet" href="assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://webpkit.app/#organization","name":"WebPKit","url":"https://webpkit.app/","logo":{"@type":"ImageObject","url":"https://webpkit.app/assets/og.png","width":1200,"height":630},"email":"wk@webpkit.app","sameAs":["https://github.com/siliconwoke28-afk/webpkit-site"]},{"@type":"WebSite","@id":"https://webpkit.app/#website","url":"https://webpkit.app/","name":"WebPKit","publisher":{"@id":"https://webpkit.app/#organization"}},{"@type":"WebPage","@id":"https://webpkit.app/webp-to-jpg#webpage","url":"https://webpkit.app/webp-to-jpg","name":"WebP to JPG Converter - Local, White Background","description":"Convert WebP to JPG without uploading. Transparency is flattened onto white, quality is adjustable, and the output size is measured locally.","isPartOf":{"@id":"https://webpkit.app/#website"},"about":{"@id":"https://webpkit.app/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://webpkit.app/"},{"@type":"ListItem","position":2,"name":"WebP to JPG Converter - Local, White Background","item":"https://webpkit.app/webp-to-jpg"}]}]}</script>
+<link rel="stylesheet" href="assets/site.css?v=2">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is WebP to JPG lossy?","acceptedAnswer":{"@type":"Answer","text":"Yes. JPG is a lossy format, so this conversion discards some detail on top of whatever the WebP already lost; the quality slider controls how much."}},{"@type":"Question","name":"What happens to transparent areas in the WebP?","acceptedAnswer":{"@type":"Answer","text":"They become white. JPG has no alpha channel, so the converter fills the canvas with white before drawing the image, and semi-transparent edges blend toward that white."}},{"@type":"Question","name":"Does the JPG keep EXIF data?","acceptedAnswer":{"@type":"Answer","text":"No. Canvas output contains pixels only, so EXIF, GPS coordinates, and capture time are dropped. Orientation is applied by the browser during decoding, so the image is not rotated incorrectly."}},{"@type":"Question","name":"Can I keep the file size down?","acceptedAnswer":{"@type":"Answer","text":"Yes, lower the quality slider and, if the image is larger than its display size, set a longest edge before converting. Both changes are applied before the JPEG encoder runs."}}]}
 </script>
-  <meta property="og:site_name" content="WebPKit">
-  <meta property="og:image" content="https://webpkit.app/assets/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="WebPKit browser-based WebP, PNG and JPG converter">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="WebP to JPG Converter - Local, White Background">
-  <meta name="twitter:description" content="Convert WebP to JPG without uploading. Transparency is flattened onto white, quality is adjustable, and the output size is measured locally.">
-  <meta name="twitter:image" content="https://webpkit.app/assets/og.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1QJ4BB7VF"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z1QJ4BB7VF', { anonymize_ip: true });
+window.track = function (name, params) { try { gtag('event', name, params || {}); } catch (e) {} };
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -162,15 +161,17 @@
       <h2>How the local conversion works</h2>
       <p>The file is read with the File API, decoded by the browser, drawn to a canvas, and encoded with <strong>canvas.toBlob('image/jpeg', quality)</strong>. No network request is made, so the image never leaves the machine. The reported output size and percentage difference come from the actual JPEG blob, which is why they can differ from what a desktop editor produces with different encoder settings.</p>
 
-      <section class="seo-faq" aria-labelledby="faq-title">
-<h2 id="faq-title">Frequently asked questions</h2>
-      <details><summary><h3>Is WebP to JPG lossy?</h3></summary><p>Yes. JPG is a lossy format, so this conversion discards some detail on top of whatever the WebP already lost; the quality slider controls how much.</p></details>
-      <details><summary><h3>What happens to transparent areas in the WebP?</h3></summary><p>They become white. JPG has no alpha channel, so the converter fills the canvas with white before drawing the image, and semi-transparent edges blend toward that white.</p></details>
-      <details><summary><h3>Does the JPG keep EXIF data?</h3></summary><p>No. Canvas output contains pixels only, so EXIF, GPS coordinates, and capture time are dropped. Orientation is applied by the browser during decoding, so the image is not rotated incorrectly.</p></details>
-      <details><summary><h3>Can I keep the file size down?</h3></summary><p>Yes, lower the quality slider and, if the image is larger than its display size, set a longest edge before converting. Both changes are applied before the JPEG encoder runs.</p></details>
+      <h2>Frequently asked questions</h2>
+      <h3>Is WebP to JPG lossy?</h3>
+      <p>Yes. JPG is a lossy format, so this conversion discards some detail on top of whatever the WebP already lost; the quality slider controls how much.</p>
+      <h3>What happens to transparent areas in the WebP?</h3>
+      <p>They become white. JPG has no alpha channel, so the converter fills the canvas with white before drawing the image, and semi-transparent edges blend toward that white.</p>
+      <h3>Does the JPG keep EXIF data?</h3>
+      <p>No. Canvas output contains pixels only, so EXIF, GPS coordinates, and capture time are dropped. Orientation is applied by the browser during decoding, so the image is not rotated incorrectly.</p>
+      <h3>Can I keep the file size down?</h3>
+      <p>Yes, lower the quality slider and, if the image is larger than its display size, set a longest edge before converting. Both changes are applied before the JPEG encoder runs.</p>
 
-      </section>
-<section class="related" aria-labelledby="related-title">
+      <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
           <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
@@ -179,7 +180,7 @@
         </div>
       </section>
 
-      <section class="bottom seo-summary" aria-labelledby="bottom-title">
+      <section class="bottom" aria-labelledby="bottom-title">
         <h2 id="bottom-title">Bottom line</h2>
         <p>Use WebP to JPG for opaque photographs that must open in software without WebP support. Accept the white background, start at quality 0.8, and resize before encoding if the file is too large. If transparency matters, output PNG instead.</p>
       </section>
@@ -201,6 +202,6 @@
     </p>
   </div>
 </footer>
-<script src="assets/app.js" defer></script>
+<script src="assets/app.js?v=2" defer></script>
 </body>
 </html>

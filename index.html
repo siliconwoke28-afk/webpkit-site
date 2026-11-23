@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="msvalidate.01" content="9D7433268A5D262A40C974D2AF315FCE">
 <title>WebP Converter - WebP, PNG &amp; JPG in Your Browser</title>
 <meta name="description" content="Convert WebP to PNG or JPG, and PNG or JPG to WebP, inside your browser. Local canvas processing, transparency handled, real output size.">
 <link rel="canonical" href="https://webpkit.app/">
@@ -12,20 +11,19 @@
 <meta property="og:title" content="WebP Converter - WebP, PNG &amp; JPG in Your Browser">
 <meta property="og:description" content="Convert images between WebP, PNG and JPG locally. Files never leave your device.">
 <meta property="og:url" content="https://webpkit.app/">
-<link rel="stylesheet" href="assets/site.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://webpkit.app/#organization","name":"WebPKit","url":"https://webpkit.app/","logo":{"@type":"ImageObject","url":"https://webpkit.app/assets/og.png","width":1200,"height":630},"email":"wk@webpkit.app","sameAs":["https://github.com/siliconwoke28-afk/webpkit-site"]},{"@type":"WebSite","@id":"https://webpkit.app/#website","url":"https://webpkit.app/","name":"WebPKit","publisher":{"@id":"https://webpkit.app/#organization"}},{"@type":"WebPage","@id":"https://webpkit.app/#webpage","url":"https://webpkit.app/","name":"WebP Converter - WebP, PNG & JPG in Your Browser","description":"Convert WebP to PNG or JPG, and PNG or JPG to WebP, inside your browser. Local canvas processing, transparency handled, real output size.","isPartOf":{"@id":"https://webpkit.app/#website"},"about":{"@id":"https://webpkit.app/#organization"}}]}</script>
+<link rel="stylesheet" href="assets/site.css?v=2">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does converting to WebP reduce quality?","acceptedAnswer":{"@type":"Answer","text":"Below quality 1.0, yes: the WebP encoder is lossy. At 1.0 Chromium browsers switch to lossless WebP, which keeps pixels but can produce a much larger file, and other browsers may behave differently."}},{"@type":"Question","name":"Will transparency survive the conversion?","acceptedAnswer":{"@type":"Answer","text":"PNG and WebP keep the alpha channel; JPG does not. JPG output is composited onto white, so soft shadows become white fringes."}},{"@type":"Question","name":"Can I convert several images at once?","acceptedAnswer":{"@type":"Answer","text":"No. WebPKit converts one image per run by design, and the size comparison refers to that single file. Batch jobs need a different tool."}},{"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"Yes, 25 MB per image. Larger files are rejected before decoding so the browser tab does not run out of memory."}}]}
 </script>
-  <meta property="og:site_name" content="WebPKit">
-  <meta property="og:image" content="https://webpkit.app/assets/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="WebPKit browser-based WebP, PNG and JPG converter">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="WebP Converter - WebP, PNG &amp; JPG in Your Browser">
-  <meta name="twitter:description" content="Convert WebP to PNG or JPG, and PNG or JPG to WebP, inside your browser. Local canvas processing, transparency handled, real output size.">
-  <meta name="twitter:image" content="https://webpkit.app/assets/og.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1QJ4BB7VF"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z1QJ4BB7VF', { anonymize_ip: true });
+window.track = function (name, params) { try { gtag('event', name, params || {}); } catch (e) {} };
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -164,15 +162,17 @@
       <p>The page has no upload endpoint and the script makes no network requests. Images are read with the File API, decoded with <strong>createImageBitmap</strong> or an Image element, and encoded with <strong>canvas.toBlob</strong>. You can verify this yourself by opening the network panel in your browser's developer tools while converting: no request carries your image. Once the page is loaded, conversion works offline.</p>
       <p>That property is the main reason this tool exists. Uploading a client's screenshot to an unknown server just to change its format is a needless disclosure. Local processing removes the question entirely. The <a href="/privacy">privacy policy</a> describes the same boundary in more detail.</p>
 
-      <section class="seo-faq" aria-labelledby="faq-title">
-<h2 id="faq-title">Frequently asked questions</h2>
-      <details><summary><h3>Does converting to WebP reduce quality?</h3></summary><p>Below quality 1.0, yes: the WebP encoder is lossy. At 1.0 Chromium browsers switch to lossless WebP, which keeps pixels but can produce a much larger file, and other browsers may behave differently.</p></details>
-      <details><summary><h3>Will transparency survive the conversion?</h3></summary><p>PNG and WebP keep the alpha channel; JPG does not. JPG output is composited onto white, so soft shadows become white fringes.</p></details>
-      <details><summary><h3>Can I convert several images at once?</h3></summary><p>No. WebPKit converts one image per run by design, and the size comparison refers to that single file. Batch jobs need a different tool.</p></details>
-      <details><summary><h3>Is there a file size limit?</h3></summary><p>Yes, 25 MB per image. Larger files are rejected before decoding so the browser tab does not run out of memory.</p></details>
+      <h2>Frequently asked questions</h2>
+      <h3>Does converting to WebP reduce quality?</h3>
+      <p>Below quality 1.0, yes: the WebP encoder is lossy. At 1.0 Chromium browsers switch to lossless WebP, which keeps pixels but can produce a much larger file, and other browsers may behave differently.</p>
+      <h3>Will transparency survive the conversion?</h3>
+      <p>PNG and WebP keep the alpha channel; JPG does not. JPG output is composited onto white, so soft shadows become white fringes.</p>
+      <h3>Can I convert several images at once?</h3>
+      <p>No. WebPKit converts one image per run by design, and the size comparison refers to that single file. Batch jobs need a different tool.</p>
+      <h3>Is there a file size limit?</h3>
+      <p>Yes, 25 MB per image. Larger files are rejected before decoding so the browser tab does not run out of memory.</p>
 
-      </section>
-<section class="related" aria-labelledby="related-title">
+      <section class="related" aria-labelledby="related-title">
         <h2 id="related-title">Related converters</h2>
         <div class="related-grid">
           <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
@@ -181,7 +181,7 @@
         </div>
       </section>
 
-      <section class="bottom seo-summary" aria-labelledby="bottom-title">
+      <section class="bottom" aria-labelledby="bottom-title">
         <h2 id="bottom-title">Bottom line</h2>
         <p>Use WebP for the web when you control the destination, PNG when you need lossless pixels or transparency, and JPG when compatibility matters more than bytes. Start around quality 0.8, check the preview, and trust the measured size. Everything happens in this tab; nothing is uploaded.</p>
       </section>
@@ -203,6 +203,6 @@
     </p>
   </div>
 </footer>
-<script src="assets/app.js" defer></script>
+<script src="assets/app.js?v=2" defer></script>
 </body>
 </html>
