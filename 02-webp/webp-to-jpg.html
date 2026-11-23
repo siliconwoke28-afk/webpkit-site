@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebP to JPG Converter - Local, White Background</title>
+<meta name="description" content="Convert WebP to JPG without uploading. Transparency is flattened onto white, quality is adjustable, and the output size is measured locally.">
+<link rel="canonical" href="https://webpkit.app/webp-to-jpg">
+<meta name="theme-color" content="#0b0d10">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WebP to JPG Converter - Local, White Background">
+<meta property="og:description" content="Convert WebP to JPG in your browser. Alpha becomes white, EXIF is dropped, nothing is uploaded.">
+<meta property="og:url" content="https://webpkit.app/webp-to-jpg">
+<link rel="stylesheet" href="assets/site.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is WebP to JPG lossy?","acceptedAnswer":{"@type":"Answer","text":"Yes. JPG is a lossy format, so this conversion discards some detail on top of whatever the WebP already lost; the quality slider controls how much."}},{"@type":"Question","name":"What happens to transparent areas in the WebP?","acceptedAnswer":{"@type":"Answer","text":"They become white. JPG has no alpha channel, so the converter fills the canvas with white before drawing the image, and semi-transparent edges blend toward that white."}},{"@type":"Question","name":"Does the JPG keep EXIF data?","acceptedAnswer":{"@type":"Answer","text":"No. Canvas output contains pixels only, so EXIF, GPS coordinates, and capture time are dropped. Orientation is applied by the browser during decoding, so the image is not rotated incorrectly."}},{"@type":"Question","name":"Can I keep the file size down?","acceptedAnswer":{"@type":"Answer","text":"Yes, lower the quality slider and, if the image is larger than its display size, set a longest edge before converting. Both changes are applied before the JPEG encoder runs."}}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1QJ4BB7VF"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z1QJ4BB7VF', { anonymize_ip: true });
+window.track = function (name, params) { try { gtag('event', name, params || {}); } catch (e) {} };
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topline" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/" aria-label="WebPKit home">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="logo-text">WebP<span>Kit</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/" aria-current="page">Converter</a>
+      <a href="/#formats">Formats</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li>Converters</li>
+        <li aria-current="page">WebP to JPG</li>
+      </ol>
+    </nav>
+
+    <section class="hero">
+      <h1>WebP to JPG converter with a white background</h1>
+      <p class="page-meta"><span>Updated 2026-11-17</span><span>By WebPKit</span><span>6 min read</span></p>
+      <p class="lede">Converting WebP to JPG re-encodes the image with lossy JPEG compression and flattens any transparency onto white. Use it when a destination rejects WebP and the picture is photographic. If the image has a cut-out subject or a soft shadow, expect a visible white fringe where the alpha channel used to be.</p>
+    </section>
+
+    <section class="workbench" aria-label="WebP to JPG converter">
+      <div class="grid" id="converter" data-output="jpg">
+        <div class="col-8">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="label">01 / Input</span>
+              <span class="label">One image · max 25 MB</span>
+            </div>
+            <input class="sr-only" type="file" id="file" accept="image/*" tabindex="-1">
+            <label class="dropzone" id="dropzone" for="file" tabindex="0" role="button" aria-describedby="drop-help">
+              <span class="drop-icon" aria-hidden="true">+</span>
+              <span class="drop-title">Drop a WebP here</span>
+              <span class="drop-sub">or click to browse - other formats are accepted too</span>
+              <span class="drop-note" id="drop-help">Processed on this device. Never uploaded.</span>
+            </label>
+            <dl class="filemeta" id="filemeta" hidden>
+              <div><dt>Source</dt><dd id="meta-format">Not loaded</dd></div>
+              <div><dt>Dimensions</dt><dd id="meta-dims">Not loaded</dd></div>
+              <div><dt>File size</dt><dd id="meta-size">Not loaded</dd></div>
+            </dl>
+            <p class="status" id="status" role="status" aria-live="polite">No image loaded.</p>
+            <noscript><p class="status is-error">This converter needs JavaScript. The rest of the page still works without it.</p></noscript>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="label">02 / Output</span>
+              <span class="label">JPG</span>
+            </div>
+            <fieldset class="field">
+              <legend class="label">Format</legend>
+              <div class="seg">
+                <input type="radio" id="fmt-webp" name="format" value="webp">
+                <label for="fmt-webp">WebP</label>
+                <input type="radio" id="fmt-png" name="format" value="png">
+                <label for="fmt-png">PNG</label>
+                <input type="radio" id="fmt-jpg" name="format" value="jpg" checked>
+                <label for="fmt-jpg">JPG</label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <div class="field-row">
+                <label class="label" for="quality">Quality</label>
+                <output class="output-val" id="quality-out" for="quality">0.80</output>
+              </div>
+              <input type="range" id="quality" min="0.4" max="1" step="0.05" value="0.8">
+              <p class="hint" id="quality-hint">Lossy encoding. 0.80 is a common starting point.</p>
+            </div>
+            <div class="field">
+              <label class="label" for="maxedge">Longest edge (px)</label>
+              <input type="number" id="maxedge" min="16" max="12000" step="1" inputmode="numeric" placeholder="No resize">
+              <p class="hint">Leave empty to keep the original dimensions.</p>
+            </div>
+            <button class="btn" id="convert" type="button" disabled>Convert image</button>
+            <div class="result" id="result" hidden>
+              <div class="result-preview"><img id="preview" alt="Preview of the converted JPG"></div>
+              <dl class="stats">
+                <div><dt>Output</dt><dd id="out-format">Not loaded</dd></div>
+                <div><dt>Dimensions</dt><dd id="out-dims">Not loaded</dd></div>
+                <div><dt>Size</dt><dd id="out-size">Not loaded</dd></div>
+                <div><dt>vs original</dt><dd id="out-delta">Not loaded</dd></div>
+              </dl>
+              <a class="btn btn-download" id="download" download>Download JPG</a>
+            </div>
+            <p class="status" id="result-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+      <p class="tool-note">One image per run. Batch conversion is not supported. Nothing is uploaded.</p>
+    </section>
+
+    <article class="article">
+      <h2>What WebP to JPG actually changes</h2>
+      <p>Two things change at once. The pixel data is re-encoded with the JPEG algorithm, which is lossy, and the alpha channel is removed, because the JPEG format has no way to store it. Everything else - dimensions, aspect ratio, and the visible composition - stays the same unless you set a longest edge.</p>
+
+      <h3>Transparency becomes white</h3>
+      <p>This tool fills the canvas with solid white before drawing the image. Any pixel that was fully transparent becomes white; any pixel that was partially transparent is blended with white according to its alpha value. The output JPG is fully opaque, which is what JPG consumers expect.</p>
+
+      <h3>Soft edges and fringes</h3>
+      <p>A cut-out product photo on a transparent background is the worst case. Its anti-aliased edges carry a gradient of alpha values, and after flattening those values turn into a pale halo against the new background. On a white page the halo is usually invisible; on a dark page it is obvious. If the target background is not white, this conversion is not the right step - keep the WebP or <a href="/webp-to-png">convert WebP to PNG</a> so the alpha survives and you can composite the image properly.</p>
+
+      <h2>Quality: 0.8 is a reasonable start</h2>
+      <p>The slider maps to the JPEG encoder's quality argument. At 0.8 you get a file that looks clean at normal viewing distance for most photographs while cutting a large share of the bytes. At 0.6 the image starts to soften; at 0.4 block artifacts appear in gradients, skies, and skin tones. Raise it to 0.9 or higher for detailed textures, small text, or images that will be cropped and zoomed after delivery.</p>
+
+      <h3>Artifacts to watch for</h3>
+      <p>JPEG works on 8×8 blocks and subsamples color information. The visible symptoms are ringing around hard edges, blocking in smooth gradients, and color smearing on fine red details. Screenshots and line art show these problems badly. If your source is UI work rather than a photo, PNG is the better output.</p>
+
+      <h3>Why quality 1.0 is not lossless</h3>
+      <p>Even at 1.0 the JPEG encoder quantizes and discards information; it just does so with the finest tables it has. The output is high quality, not identical to the input. And because the source WebP was already lossy, the conversion always adds a second generation of artifacts. Convert once from the best original you have rather than trading formats repeatedly.</p>
+
+      <h2>Metadata, EXIF and orientation</h2>
+      <p>Canvas output contains pixels only. Camera model, capture time, GPS coordinates, copyright fields, and color-profile tags are not written to the JPG. That is often desirable for privacy: a photo taken on a phone can otherwise reveal where it was shot. It also means you cannot rely on this tool to preserve provenance metadata.</p>
+      <p>Orientation is handled during decoding. Browsers apply the EXIF orientation of the source when they draw the image, so the JPG shows the picture upright even though the orientation tag itself is gone. If you need the raw stored orientation, use a metadata-aware editor instead.</p>
+
+      <h2>When to convert, and when to keep the WebP</h2>
+      <p>Convert when an upload form, email client, print service, or older application refuses WebP. JPG remains the most widely accepted photographic format. Keep the WebP when the image has transparency, when the destination is a modern browser, or when file size is the priority. A JPG of the same photo is often larger than the WebP it came from, so this is a compatibility move, not a size optimization.</p>
+      <p>If size is the goal, adjust the longest edge before converting. Reducing a 4000 px photo to 1600 px does more for the byte count than moving the quality slider, and it is easy to do with the size field above or on the dedicated <a href="/resize-webp">resize WebP</a> page. To go the other direction later, use <a href="/jpg-to-webp">JPG to WebP</a>.</p>
+
+      <h2>How the local conversion works</h2>
+      <p>The file is read with the File API, decoded by the browser, drawn to a canvas, and encoded with <strong>canvas.toBlob('image/jpeg', quality)</strong>. No network request is made, so the image never leaves the machine. The reported output size and percentage difference come from the actual JPEG blob, which is why they can differ from what a desktop editor produces with different encoder settings.</p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>Is WebP to JPG lossy?</h3>
+      <p>Yes. JPG is a lossy format, so this conversion discards some detail on top of whatever the WebP already lost; the quality slider controls how much.</p>
+      <h3>What happens to transparent areas in the WebP?</h3>
+      <p>They become white. JPG has no alpha channel, so the converter fills the canvas with white before drawing the image, and semi-transparent edges blend toward that white.</p>
+      <h3>Does the JPG keep EXIF data?</h3>
+      <p>No. Canvas output contains pixels only, so EXIF, GPS coordinates, and capture time are dropped. Orientation is applied by the browser during decoding, so the image is not rotated incorrectly.</p>
+      <h3>Can I keep the file size down?</h3>
+      <p>Yes, lower the quality slider and, if the image is larger than its display size, set a longest edge before converting. Both changes are applied before the JPEG encoder runs.</p>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">Related converters</h2>
+        <div class="related-grid">
+          <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
+          <a href="/jpg-to-webp"><span class="r-label">Converter</span><span class="r-title">JPG to WebP</span></a>
+          <a href="/resize-webp"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+        </div>
+      </section>
+
+      <section class="bottom" aria-labelledby="bottom-title">
+        <h2 id="bottom-title">Bottom line</h2>
+        <p>Use WebP to JPG for opaque photographs that must open in software without WebP support. Accept the white background, start at quality 0.8, and resize before encoding if the file is too large. If transparency matters, output PNG instead.</p>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
+      <a href="sitemap.xml">Sitemap</a>
+    </nav>
+    <p class="footer-meta">
+      <strong>Files never leave your device.</strong>
+      <span class="footer-line">© 2026 WebPKit. Converted locally in your browser.</span>
+    </p>
+  </div>
+</footer>
+<script src="assets/app.js?v=2" defer></script>
+</body>
+</html>

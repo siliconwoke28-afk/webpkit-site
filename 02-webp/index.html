@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebP Converter - WebP, PNG &amp; JPG in Your Browser</title>
+<meta name="description" content="Convert WebP to PNG or JPG, and PNG or JPG to WebP, inside your browser. Local canvas processing, transparency handled, real output size.">
+<link rel="canonical" href="https://webpkit.app/">
+<meta name="theme-color" content="#0b0d10">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WebP Converter - WebP, PNG &amp; JPG in Your Browser">
+<meta property="og:description" content="Convert images between WebP, PNG and JPG locally. Files never leave your device.">
+<meta property="og:url" content="https://webpkit.app/">
+<link rel="stylesheet" href="assets/site.css?v=2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does converting to WebP reduce quality?","acceptedAnswer":{"@type":"Answer","text":"Below quality 1.0, yes: the WebP encoder is lossy. At 1.0 Chromium browsers switch to lossless WebP, which keeps pixels but can produce a much larger file, and other browsers may behave differently."}},{"@type":"Question","name":"Will transparency survive the conversion?","acceptedAnswer":{"@type":"Answer","text":"PNG and WebP keep the alpha channel; JPG does not. JPG output is composited onto white, so soft shadows become white fringes."}},{"@type":"Question","name":"Can I convert several images at once?","acceptedAnswer":{"@type":"Answer","text":"No. WebPKit converts one image per run by design, and the size comparison refers to that single file. Batch jobs need a different tool."}},{"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"Yes, 25 MB per image. Larger files are rejected before decoding so the browser tab does not run out of memory."}}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1QJ4BB7VF"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z1QJ4BB7VF', { anonymize_ip: true });
+window.track = function (name, params) { try { gtag('event', name, params || {}); } catch (e) {} };
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topline" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/" aria-label="WebPKit home">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <span class="logo-text">WebP<span>Kit</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/" aria-current="page">Converter</a>
+      <a href="/#formats">Formats</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li>Converters</li>
+        <li aria-current="page">WebP converter</li>
+      </ol>
+    </nav>
+
+    <section class="hero">
+      <h1>WebP converter for PNG and JPG, in your browser</h1>
+      <p class="page-meta"><span>Updated 2026-11-17</span><span>By WebPKit</span><span>6 min read</span></p>
+      <p class="lede">Drop an image and convert it between WebP, PNG and JPG without uploading anything. The file is decoded and re-encoded by your browser on a canvas, transparency is handled per format, and the size difference you see is measured from the actual output bytes. No account, no queue, no server.</p>
+    </section>
+
+    <section class="workbench" aria-label="Image converter">
+      <div class="grid" id="converter" data-output="webp">
+        <div class="col-8">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="label">01 / Input</span>
+              <span class="label">One image · max 25 MB</span>
+            </div>
+            <input class="sr-only" type="file" id="file" accept="image/*" tabindex="-1">
+            <label class="dropzone" id="dropzone" for="file" tabindex="0" role="button" aria-describedby="drop-help">
+              <span class="drop-icon" aria-hidden="true">+</span>
+              <span class="drop-title">Drop an image here</span>
+              <span class="drop-sub">or click to browse - WebP, PNG, JPG, GIF, AVIF</span>
+              <span class="drop-note" id="drop-help">Processed on this device. Never uploaded.</span>
+            </label>
+            <dl class="filemeta" id="filemeta" hidden>
+              <div><dt>Source</dt><dd id="meta-format">Not loaded</dd></div>
+              <div><dt>Dimensions</dt><dd id="meta-dims">Not loaded</dd></div>
+              <div><dt>File size</dt><dd id="meta-size">Not loaded</dd></div>
+            </dl>
+            <p class="status" id="status" role="status" aria-live="polite">No image loaded.</p>
+            <noscript><p class="status is-error">This converter needs JavaScript. The rest of the page still works without it.</p></noscript>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="label">02 / Output</span>
+              <span class="label">Local</span>
+            </div>
+            <fieldset class="field">
+              <legend class="label">Format</legend>
+              <div class="seg">
+                <input type="radio" id="fmt-webp" name="format" value="webp" checked>
+                <label for="fmt-webp">WebP</label>
+                <input type="radio" id="fmt-png" name="format" value="png">
+                <label for="fmt-png">PNG</label>
+                <input type="radio" id="fmt-jpg" name="format" value="jpg">
+                <label for="fmt-jpg">JPG</label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <div class="field-row">
+                <label class="label" for="quality">Quality</label>
+                <output class="output-val" id="quality-out" for="quality">0.80</output>
+              </div>
+              <input type="range" id="quality" min="0.4" max="1" step="0.05" value="0.8">
+              <p class="hint" id="quality-hint">Lossy encoding. 0.80 is a common starting point.</p>
+            </div>
+            <div class="field">
+              <label class="label" for="maxedge">Longest edge (px)</label>
+              <input type="number" id="maxedge" min="16" max="12000" step="1" inputmode="numeric" placeholder="No resize">
+              <p class="hint">Leave empty to keep the original dimensions.</p>
+            </div>
+            <button class="btn" id="convert" type="button" disabled>Convert image</button>
+            <div class="result" id="result" hidden>
+              <div class="result-preview"><img id="preview" alt="Preview of the converted image"></div>
+              <dl class="stats">
+                <div><dt>Output</dt><dd id="out-format">Not loaded</dd></div>
+                <div><dt>Dimensions</dt><dd id="out-dims">Not loaded</dd></div>
+                <div><dt>Size</dt><dd id="out-size">Not loaded</dd></div>
+                <div><dt>vs original</dt><dd id="out-delta">Not loaded</dd></div>
+              </dl>
+              <a class="btn btn-download" id="download" download>Download image</a>
+            </div>
+            <p class="status" id="result-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+      <p class="tool-note">One image per run. Batch conversion is not supported. Nothing is uploaded.</p>
+    </section>
+
+    <article class="article">
+      <h2>What this WebP converter actually does</h2>
+      <p>Drop a WebP, PNG, or JPG into the panel above and choose an output: WebP, PNG, or JPG. Your browser decodes the file, draws it onto a canvas at the size you request, and re-encodes it with its own image encoder. There is no server in the loop. The source format, dimensions, and byte size are read from the file; the output size and the percentage change are measured from the resulting blob, not estimated.</p>
+      <p>The tool handles one image at a time. That is deliberate: a single-file workflow keeps memory use predictable and makes the size comparison honest. If you need to process a folder, a desktop tool or a command-line encoder such as <strong>cwebp</strong> is a better fit. The 25 MB ceiling exists for the same reason - a very large image can exhaust memory on a phone while it is being decoded.</p>
+
+      <h2 id="formats">WebP, PNG or JPG: pick the output that fits the job</h2>
+      <p>These three formats solve different problems, and the right choice depends on what happens after the file leaves this page.</p>
+
+      <h3>WebP: smaller files, lossy by default</h3>
+      <p>WebP is not a single codec setting. The format supports lossy compression, lossless compression, and an alpha channel, and encoders can combine those modes. This tool passes the quality value to the browser's encoder through <strong>canvas.toBlob</strong>. In Chromium-based browsers, values below 1.0 produce lossy WebP and 1.0 switches to lossless; other browsers may map the value differently. The measured output size makes that difference visible.</p>
+      <p>Lossy WebP is usually the right choice for photographs and large illustrations on the web. It tends to beat JPEG at comparable visual quality and it keeps transparency when the source has it. If your source is a PNG and you want a smaller file, start with <a href="/png-to-webp">PNG to WebP conversion</a> and check the preview for banding in flat areas.</p>
+
+      <h3>PNG: lossless pixels and clean transparency</h3>
+      <p>PNG stores every pixel exactly and supports full alpha. That makes it the safe target for screenshots, UI assets, line art, logos, and images that will be edited again. The cost is size: a photographic PNG can be several times larger than the WebP it came from. When you need a lossless copy of what the browser decoded, <a href="/webp-to-png">convert WebP to PNG</a>.</p>
+      <p>PNG output here is produced by the browser's PNG encoder and is lossless relative to the decoded source. It cannot restore detail that a lossy WebP already discarded.</p>
+
+      <h3>JPG: universal, photographic, no alpha</h3>
+      <p>JPEG is the format every photo pipeline accepts. It does not support transparency, so this tool composites transparent pixels onto white before encoding. Choose JPG when a destination rejects WebP and the image is a photograph. For screenshots and text, JPEG's block artifacts are visible; PNG is the better target. If your source is a WebP with alpha, read <a href="/webp-to-jpg">WebP to JPG</a> before you convert, because the background change is permanent in the output.</p>
+
+      <h2>How quality 0.8 behaves in practice</h2>
+      <p>The slider runs from 0.4 to 1.0 and applies only to WebP and JPG. 0.8 is a common default because it removes a large share of the bytes while leaving artifacts hard to see at normal viewing sizes. At 0.4 you will see ringing around edges and smearing in flat areas; that can be acceptable for thumbnails and unacceptable for product shots. In Chromium browsers, sliding WebP to 1.0 changes the encoder to lossless, so the file can jump in size at the top of the range.</p>
+      <p>Quality is not a percentage of original quality, and the number is not comparable across formats. A WebP at 0.8 and a JPEG at 0.8 are different encoders doing different math. Judge by the preview and the measured size, not by the label. PNG ignores the slider; the control is disabled when PNG is selected so the interface does not imply a setting that has no effect.</p>
+
+      <h2>What conversion drops</h2>
+      <p>Canvas conversion keeps pixels and alpha, but it does not carry container metadata. EXIF fields such as camera model, capture time, and GPS coordinates are not written to the output. Most browsers draw images into an sRGB canvas, so embedded color profiles are not preserved as tags; the pixels are converted to the canvas color space. For a screenshot or a web photo this rarely matters. For a print workflow or a photo that depends on a wide-gamut profile, convert in an application that manages color.</p>
+      <p>There is also a generational cost. Every lossy encode discards information. Converting WebP to JPG and back to WebP does not return the original; it stacks two sets of artifacts. Convert once, from the best source you have, and keep the untouched original somewhere.</p>
+
+      <h2>Why the file never leaves your device</h2>
+      <p>The page has no upload endpoint and the script makes no network requests. Images are read with the File API, decoded with <strong>createImageBitmap</strong> or an Image element, and encoded with <strong>canvas.toBlob</strong>. You can verify this yourself by opening the network panel in your browser's developer tools while converting: no request carries your image. Once the page is loaded, conversion works offline.</p>
+      <p>That property is the main reason this tool exists. Uploading a client's screenshot to an unknown server just to change its format is a needless disclosure. Local processing removes the question entirely. The <a href="/privacy">privacy policy</a> describes the same boundary in more detail.</p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>Does converting to WebP reduce quality?</h3>
+      <p>Below quality 1.0, yes: the WebP encoder is lossy. At 1.0 Chromium browsers switch to lossless WebP, which keeps pixels but can produce a much larger file, and other browsers may behave differently.</p>
+      <h3>Will transparency survive the conversion?</h3>
+      <p>PNG and WebP keep the alpha channel; JPG does not. JPG output is composited onto white, so soft shadows become white fringes.</p>
+      <h3>Can I convert several images at once?</h3>
+      <p>No. WebPKit converts one image per run by design, and the size comparison refers to that single file. Batch jobs need a different tool.</p>
+      <h3>Is there a file size limit?</h3>
+      <p>Yes, 25 MB per image. Larger files are rejected before decoding so the browser tab does not run out of memory.</p>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">Related converters</h2>
+        <div class="related-grid">
+          <a href="/webp-to-png"><span class="r-label">Converter</span><span class="r-title">WebP to PNG</span></a>
+          <a href="/png-to-webp"><span class="r-label">Converter</span><span class="r-title">PNG to WebP</span></a>
+          <a href="/resize-webp"><span class="r-label">Converter</span><span class="r-title">Resize WebP</span></a>
+        </div>
+      </section>
+
+      <section class="bottom" aria-labelledby="bottom-title">
+        <h2 id="bottom-title">Bottom line</h2>
+        <p>Use WebP for the web when you control the destination, PNG when you need lossless pixels or transparency, and JPG when compatibility matters more than bytes. Start around quality 0.8, check the preview, and trust the measured size. Everything happens in this tab; nothing is uploaded.</p>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/contact">Contact</a>
+      <a href="sitemap.xml">Sitemap</a>
+    </nav>
+    <p class="footer-meta">
+      <strong>Files never leave your device.</strong>
+      <span class="footer-line">© 2026 WebPKit. Converted locally in your browser.</span>
+    </p>
+  </div>
+</footer>
+<script src="assets/app.js?v=2" defer></script>
+</body>
+</html>
